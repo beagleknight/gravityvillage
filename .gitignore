@@ -1,2 +1,4 @@
 bin/*.o
 bin/*.a
+bin/Makefile
+bin/CMakeFiles
