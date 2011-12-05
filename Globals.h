@@ -10,10 +10,6 @@
 
 using namespace std;
 
-#include "Game.h"
-#include "Scene.h"
-#include "SceneManager.h"
-
 #define GAME_WIDTH 640
 #define GAME_HEIGHT 480
 

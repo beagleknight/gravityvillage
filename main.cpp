@@ -1,4 +1,5 @@
 #include "Globals.h"
+#include "Game.h"
 
 void RenderCallback(void);
 void KeyDownCallback(unsigned char, int, int);
