@@ -1,13 +1,12 @@
-#include <GL/glut.h>
-
-#define GAME_WIDTH 640
-#define GAME_HEIGHT 480
+#include "Globals.h"
 
 void RenderCallback(void);
-void KeyDownCallback(unsigned char,int,int);
+void KeyDownCallback(unsigned char, int, int);
 void setupRC(void);
+void ChangeSize(GLsizei, GLsizei);
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
 	int res_x,res_y,pos_x,pos_y;
 
   //GLUT Initialization
@@ -28,6 +27,7 @@ int main(int argc, char **argv) {
   //Register callbacks
   glutDisplayFunc(RenderCallback);
 	glutKeyboardFunc(KeyDownCallback);		
+  glutReshapeFunc(ChangeSize);
 
   //Setup
   setupRC();
@@ -36,18 +36,43 @@ int main(int argc, char **argv) {
   return 0;
 }
 
-void RenderCallback(void) {
-  glClear(GL_COLOR_BUFFER_BIT);
-	glLoadIdentity();
-	glutSwapBuffers();
+void RenderCallback(void)
+{
+  Game::getInstance().render();
 }
 
-void KeyDownCallback(unsigned char key, int x, int y) {
+void KeyDownCallback(unsigned char key, int x, int y)
+{
   if(key == 27) {
     exit(0);
   }
 }
 
-void setupRC(void) {
+void setupRC(void)
+{
   glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+}
+
+void ChangeSize(GLsizei w, GLsizei h)
+{
+  GLfloat aspectRatio;
+
+  if(h == 0) h = 1;
+
+  glViewport(0, 0, w, h);
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+
+  aspectRatio = (GLfloat)w / (GLfloat)h;
+  if(w <= h)
+  {
+    glOrtho(-100.0, 100.0, -100 / aspectRatio, 100.0 / aspectRatio, 1.0, -1.0);
+  }
+  else
+  {
+    glOrtho(-100.0 * aspectRatio, 100.0 * aspectRatio, -100.0, 100.0, 1.0, -1.0);
+  }
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
 }
