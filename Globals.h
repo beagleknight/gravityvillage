@@ -3,7 +3,6 @@
 
 #include <GL/glut.h>
 #include <stdlib.h>
-#include <string.h>
 #include <iostream>
 #include <map>
 #include <utility>

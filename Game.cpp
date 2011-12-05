@@ -1,28 +1,27 @@
-#include "Globals.h"
 #include "Game.h"
 
 Game::Game()
 {
-
+  sm = new SceneManager();
 }
 
 Game::~Game()
 {
+  delete sm;
+}
 
+void Game::init()
+{
+  sm->addScene("main", Scene());
+  sm->setActive("main");
 }
 
 void Game::render()
 {
-  glClear(GL_COLOR_BUFFER_BIT);
-	glLoadIdentity();
-  
-  glColor3f(1.0f, 0.0f, 0.0f);
-  glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
-
-	glutSwapBuffers();
+  sm->render();
 }
 
 void Game::update(float dt)
 {
-
+  sm->update(dt);
 }
