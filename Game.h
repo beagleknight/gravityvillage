@@ -16,6 +16,7 @@ class Game
     void render();
     void update(float);
     void init();
+    SceneManager* getSceneManager();
   private:
     Game();
     Game(Game const&);

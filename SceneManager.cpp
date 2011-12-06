@@ -1,14 +1,13 @@
-#include "Globals.h"
-#include "Scene.h"
 #include "SceneManager.h"
 
 SceneManager::SceneManager()
 {
-
+  tm = new TextureManager();
 }
 
 SceneManager::~SceneManager()
 {
+  delete tm;
   scenes.clear();
 }
 
@@ -30,4 +29,9 @@ void SceneManager::setActive(const char *active)
 void SceneManager::addScene(const char *id, Scene scene)
 {
   scenes.insert(pair<const char*, Scene*>(id, &scene));
+}
+
+TextureManager* SceneManager::getTextureManager()
+{
+  return tm;
 }

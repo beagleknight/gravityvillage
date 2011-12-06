@@ -3,6 +3,7 @@
 Game::Game()
 {
   sm = new SceneManager();
+  sm->getTextureManager()->loadTexture("grass","grass.png");
 }
 
 Game::~Game()
@@ -24,4 +25,9 @@ void Game::render()
 void Game::update(float dt)
 {
   sm->update(dt);
+}
+
+SceneManager* Game::getSceneManager()
+{
+  return sm;
 }
