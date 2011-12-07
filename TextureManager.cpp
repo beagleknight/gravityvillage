@@ -20,8 +20,5 @@ void TextureManager::loadTexture(const char *id, const char *filename)
 
 void TextureManager::setActive(const char *id)
 {
-  if(textures[id] != NULL)
-  {
-    glBindTexture(GL_TEXTURE_2D,textures[id]->getId());
-  }
+  //glBindTexture(GL_TEXTURE_2D,textures[id]->getId());
 }
