@@ -3,8 +3,8 @@
 Game::Game()
 {
   sm = new SceneManager();
-  sm->getTextureManager()->loadTexture("bub","bub.png");
-  //sm->getTextureManager()->loadTexture("blocks","blocks.png");
+  sm->getTextureManager()->loadTexture(TextureManager::TEX_PLAYER,"bub.png");
+  sm->getTextureManager()->loadTexture(TextureManager::TEX_MAP,"blocks.png");
 }
 
 Game::~Game()

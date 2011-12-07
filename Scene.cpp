@@ -17,27 +17,36 @@ void Scene::render()
 
   glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
+  glColor4f(1.0f,1.0f,1.0f,1.0f);
 
   glEnable(GL_TEXTURE_2D);
-
-  //tm->setActive("bub");
+  tm->setActive(TextureManager::TEX_PLAYER);
   glBegin(GL_QUADS);
   glTexCoord2f(0.25f, 0.25f); glVertex2f(25.0f, -25.0f);
   glTexCoord2f(0.25f, 0.0f); glVertex2f(25.0f, 25.0f);
   glTexCoord2f(0.0f, 0.0f); glVertex2f(-25.0f, 25.0f);
   glTexCoord2f(0.0f, 0.25f); glVertex2f(-25.0f, -25.0f);
   glEnd();
-
   glDisable(GL_TEXTURE_2D);
 
-  //glBegin(GL_LINES);
-  //glColor3f(1.0f, 0.0f, 0.0f);
-  //glVertex2f(0.0f, 0.0f);
-  //glVertex2f(200.0f, 0.0f);
-  //glColor3f(0.0f, 1.0f, 0.0f);
-  //glVertex2f(0.0f, 0.0f);
-  //glVertex2f(0.0f, 200.0f);
-  //glEnd();
+  glEnable(GL_TEXTURE_2D);
+  tm->setActive(TextureManager::TEX_MAP);
+  glBegin(GL_QUADS);
+  glTexCoord2f(0.25f, 0.25f); glVertex2f(200.0f, -25.0f);
+  glTexCoord2f(0.25f, 0.0f); glVertex2f(200.0f, 25.0f);
+  glTexCoord2f(0.0f, 0.0f); glVertex2f(150.0f, 25.0f);
+  glTexCoord2f(0.0f, 0.25f); glVertex2f(150.0f, -25.0f);
+  glEnd();
+  glDisable(GL_TEXTURE_2D);
+
+  glBegin(GL_LINES);
+  glColor3f(1.0f, 0.0f, 0.0f);
+  glVertex2f(0.0f, 0.0f);
+  glVertex2f(200.0f, 0.0f);
+  glColor3f(0.0f, 1.0f, 0.0f);
+  glVertex2f(0.0f, 0.0f);
+  glVertex2f(0.0f, 200.0f);
+  glEnd();
 
 	glutSwapBuffers();
 }

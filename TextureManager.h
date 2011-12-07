@@ -10,10 +10,14 @@ class TextureManager
   public:
     TextureManager();
     ~TextureManager();
-    void loadTexture(const char*, const char*);
-    void setActive(const char*);
+    void loadTexture(int, const char*);
+    void setActive(int);
+    // Constants
+    static const int N_TEXTURES = 2; 
+    static const int TEX_PLAYER= 0; 
+    static const int TEX_MAP = 1; 
   private:
-    map<const char*, Texture*> textures;
+    Texture* textures[TextureManager::N_TEXTURES];
 };
 
 #endif
