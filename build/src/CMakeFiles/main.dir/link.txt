@@ -1,1 +1,0 @@
-/usr/bin/c++   -g  -ldl CMakeFiles/main.dir/main.cpp.o  -o ../bin/main -rdynamic libgame.a libscene_manager.a libtexture_manager.a ../libs/libscene.so libtexture.a -lglut -lGLU -lcorona -Wl,-rpath,/home/david/projects/gravityvillage/build/libs 

@@ -1,1 +1,0 @@
-/usr/bin/c++   -g  -ldl CMakeFiles/test.dir/test.cpp.o  -o ../bin/test -rdynamic ../src/libgame.a ../libs/libgame_test.so -lcppunit -Wl,-rpath,/home/david/projects/gravityvillage/build/libs 

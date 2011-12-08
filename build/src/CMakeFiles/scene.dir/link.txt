@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -g  -shared -Wl,-soname,libscene.so -o ../libs/libscene.so CMakeFiles/scene.dir/Scene.cpp.o 

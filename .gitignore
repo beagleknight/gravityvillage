@@ -1,8 +1,2 @@
-bin/*.o
-bin/*.a
-bin/Makefile
-bin/CMakeFiles
-bin/CMakeCache.txt
-bin/cmake_install.cmake
-bin/main
-doc/*
+build
+doc

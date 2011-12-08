@@ -1,2 +1,0 @@
-/usr/bin/ar cr libscene_manager.a  CMakeFiles/scene_manager.dir/SceneManager.cpp.o
-/usr/bin/ranlib libscene_manager.a

@@ -1,9 +1,0 @@
-/home/david/projects/gravityvillage/build/src/CMakeFiles/game.dir
-/home/david/projects/gravityvillage/build/test/CMakeFiles/game_test.dir
-/home/david/projects/gravityvillage/build/src/CMakeFiles/main.dir
-/home/david/projects/gravityvillage/build/src/CMakeFiles/scene.dir
-/home/david/projects/gravityvillage/build/src/CMakeFiles/scene_manager.dir
-/home/david/projects/gravityvillage/build/test/CMakeFiles/test.dir
-/home/david/projects/gravityvillage/build/test/CMakeFiles/tests.dir
-/home/david/projects/gravityvillage/build/src/CMakeFiles/texture.dir
-/home/david/projects/gravityvillage/build/src/CMakeFiles/texture_manager.dir
