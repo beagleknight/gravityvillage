@@ -1,0 +1,2 @@
+/usr/bin/ar cr libtexture.a  CMakeFiles/texture.dir/Texture.cpp.o
+/usr/bin/ranlib libtexture.a

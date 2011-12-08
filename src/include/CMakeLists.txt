@@ -1,0 +1,5 @@
+INSTALL_FILES(/include FILES Scene.h)
+INSTALL_FILES(/include FILES SceneManager.h)
+INSTALL_FILES(/include FILES Texture.h)
+INSTALL_FILES(/include FILES TextureManager.h)
+INSTALL_FILES(/include FILES Game.h)
