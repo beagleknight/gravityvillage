@@ -1,0 +1,14 @@
+Gravity Village
+===============
+
+Compile
+=========
+
+cd bin
+cmake ..
+make
+
+Generate documentation
+======================
+
+doxygen Doxyfile
