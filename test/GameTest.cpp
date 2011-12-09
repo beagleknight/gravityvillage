@@ -8,13 +8,12 @@ void GameTest::setUp()
 
 }
 
-
 void GameTest::tearDown()
 {
+
 }
 
-
-void GameTest::testConstructor()
+void GameTest::testGetInstance()
 {
-  CPPUNIT_FAIL( "not implemented" );
+  CPPUNIT_ASSERT_EQUAL(&Game::getInstance(), &Game::getInstance());
 }

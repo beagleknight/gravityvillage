@@ -2,18 +2,19 @@
 #define CLASS_GAME_TEST_H
 
 #include <cppunit/extensions/HelperMacros.h>
+#include "Game.h"
 
 class GameTest : public CppUnit::TestFixture
 {
   CPPUNIT_TEST_SUITE( GameTest );
-  CPPUNIT_TEST( testConstructor );
+  CPPUNIT_TEST( testGetInstance );
   CPPUNIT_TEST_SUITE_END();
 
-public:
-  void setUp();
-  void tearDown();
+  public:
+    void setUp();
+    void tearDown();
 
-  void testConstructor();
+    void testGetInstance();
 };
 
 #endif 
