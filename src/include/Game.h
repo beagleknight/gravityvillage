@@ -5,6 +5,11 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
+void RenderCallback(void);
+void KeyDownCallback(unsigned char, int, int);
+void setupRC(void);
+void ChangeSize(GLsizei, GLsizei);
+
 /**
  * Core class for any game.
  */
@@ -16,10 +21,10 @@ class Game
      * Returns single instance of Game.
      * @return Unique instance of Game in whole program.
      */
-    static Game& getInstance()
+    static Game* getInstance()
     {
       static Game instance;
-      return instance;
+      return &instance;
     }
     /**
      * Render the active scene.
@@ -33,7 +38,11 @@ class Game
     /**
      * Initialize the gmae.
      */
-    void init();
+    void init(int, char**);
+    /***
+     * Exexutes de main loop
+     */
+    void run();
     /**
      * Returns scene manager
      * @see sm

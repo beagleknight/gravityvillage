@@ -13,7 +13,8 @@ void GameTest::tearDown()
 
 }
 
+
 void GameTest::testGetInstance()
 {
-  CPPUNIT_ASSERT_EQUAL(&Game::getInstance(), &Game::getInstance());
+  CPPUNIT_ASSERT_EQUAL(Game::getInstance(), Game::getInstance());
 }

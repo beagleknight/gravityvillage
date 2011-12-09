@@ -4,25 +4,30 @@ ADD_LIBRARY(scene SHARED Scene.cpp)
 SET_TARGET_PROPERTIES(scene PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARY_OUTPUT_DIRECTORY}")
 install_targets(/lib scene)
 
-ADD_LIBRARY(scene_manager STATIC SceneManager.cpp)
+ADD_LIBRARY(scene_manager SHARED SceneManager.cpp)
 SET_TARGET_PROPERTIES(scene_manager PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARY_OUTPUT_DIRECTORY}")
 install_targets(/lib scene_manager)
 
-ADD_LIBRARY(texture STATIC Texture.cpp)
+ADD_LIBRARY(texture SHARED Texture.cpp)
 SET_TARGET_PROPERTIES(texture PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARY_OUTPUT_DIRECTORY}")
 install_targets(/lib texture)
 
-ADD_LIBRARY(texture_manager STATIC TextureManager.cpp)
+ADD_LIBRARY(texture_manager SHARED TextureManager.cpp)
 SET_TARGET_PROPERTIES(texture_manager PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARY_OUTPUT_DIRECTORY}")
 install_targets(/lib texture_manager)
 
-ADD_LIBRARY(game STATIC Game.cpp)
+ADD_LIBRARY(game SHARED Game.cpp)
 SET_TARGET_PROPERTIES(game PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARY_OUTPUT_DIRECTORY}")
 install_targets(/lib game)
+
+ADD_LIBRARY(gravity_village SHARED GravityVillage.cpp)
+SET_TARGET_PROPERTIES(gravity_village PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARY_OUTPUT_DIRECTORY}")
+install_targets(/lib gravity_village)
 
 add_executable(main main.cpp)
 SET_TARGET_PROPERTIES(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${COMMON_RUNTIME_OUTPUT_DIRECTORY}")
 
+TARGET_LINK_LIBRARIES(main gravity_village)
 TARGET_LINK_LIBRARIES(main game)
 TARGET_LINK_LIBRARIES(main scene_manager)
 TARGET_LINK_LIBRARIES(main texture_manager)

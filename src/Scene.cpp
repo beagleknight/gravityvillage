@@ -13,7 +13,7 @@ Scene::~Scene()
 
 void Scene::render()
 {
-  TextureManager *tm = Game::getInstance().getSceneManager()->getTextureManager();
+  TextureManager *tm = Game::getInstance()->getSceneManager()->getTextureManager();
 
   glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
