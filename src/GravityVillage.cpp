@@ -16,8 +16,8 @@ void GravityVillage::init(int argc, char **argv)
 
   // game initialization goes here
 
-  game->getSceneManager()->getTextureManager()->loadTexture(TextureManager::TEX_PLAYER,"bub.png");
-  game->getSceneManager()->getTextureManager()->loadTexture(TextureManager::TEX_MAP,"blocks.png");
+  game->getSceneManager()->getTextureManager()->loadTexture(TextureManager::TEX_PLAYER,"res/bub.png");
+  game->getSceneManager()->getTextureManager()->loadTexture(TextureManager::TEX_MAP,"res/blocks.png");
   game->getSceneManager()->addScene("main", Scene());
   game->getSceneManager()->setActive("main");
 }

@@ -32,6 +32,7 @@ add_subdirectory(src)
 add_subdirectory(src/include)
 add_subdirectory(test)
 add_subdirectory(test/include)
+add_subdirectory(res)
 
 # -------------------------
 
