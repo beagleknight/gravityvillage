@@ -13,7 +13,7 @@ void drawFPS();
 void output(int x, int y, char *string);
 
 Timer timer;
-TileMap map(20, 20, 32, 32, "res/test.png");
+TileMap map;
 
 int game_width = 640;
 int game_height = 480;
@@ -72,6 +72,8 @@ void init()
   glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
   glAlphaFunc(GL_GREATER, 0.05f);
   glEnable(GL_ALPHA_TEST);
+
+  map.init(20, 20, 32, 32, "res/test.png");
 }
 
 void update()

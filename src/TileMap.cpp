@@ -1,7 +1,24 @@
 #include "TileMap.hpp"
 #include <stdio.h>
 
-TileMap::TileMap(int _rows, int _cols, int _tile_w, int _tile_h, const char *filename)
+TileMap::TileMap()
+{
+  tileset = 0;
+  map = 0;
+}
+
+TileMap::~TileMap()
+{
+  if(tileset != 0) delete tileset;
+  if(map != 0)
+  {
+    for(int i = 0; i < rows; i++)
+      delete[] map[i];
+    delete[] map;
+  }
+}
+
+void TileMap::init(int _rows, int _cols, int _tile_w, int _tile_h, const char *filename)
 {
   rows = _rows;
   cols = _cols;
@@ -33,27 +50,12 @@ TileMap::TileMap(int _rows, int _cols, int _tile_w, int _tile_h, const char *fil
   }
 }
 
-TileMap::~TileMap()
-{
-  if(tileset != 0) delete tileset;
-  if(map != 0)
-  {
-    for(int i = 0; i < rows; i++)
-      delete[] map[i];
-    delete[] map;
-  }
-}
-
 void TileMap::draw()
 {
   int x;
   int y;
   int current_frame;
   float xo,xf;
-
-  glBindTexture(GL_TEXTURE_2D, tileset->getId());
-  //TODO: wtf is wrong with you
-  tileset->load("res/test.png");
 
   x = y = 0;
   for(int i = 0; i < rows; i++)
@@ -68,6 +70,7 @@ void TileMap::draw()
       glPushMatrix();
       glTranslatef(x, y, 0.0f);
       glEnable(GL_TEXTURE_2D);
+      glBindTexture(GL_TEXTURE_2D, tileset->getId());
       glBegin(GL_QUADS);
       glVertex2f(0.0f, 0.0f);
       glTexCoord2f(xo, 0.0f);

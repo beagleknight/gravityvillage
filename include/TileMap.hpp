@@ -13,8 +13,9 @@ class TileMap
     Texture *tileset;
     int **map;
   public:
-    TileMap(int _rows, int _cols, int _tile_w, int _tile_h, const char *filename);
+    TileMap();
     ~TileMap();
+    void init(int _rows, int _cols, int _tile_w, int _tile_h, const char *filename);
     void draw();
 };
 
