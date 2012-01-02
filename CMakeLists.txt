@@ -12,10 +12,14 @@ set(COMMON_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
 include_directories("include")
 
 add_library(timer SHARED src/Timer.cpp)
+add_library(texture SHARED src/Texture.cpp)
 add_executable(main src/main.cpp)
 
 target_link_libraries(main timer)
+target_link_libraries(main texture)
 target_link_libraries(main glut)
+target_link_libraries(main GLU)
+target_link_libraries(main corona)
 
 #
 #ADD_LIBRARY(Scene STATIC Scene.cpp)
