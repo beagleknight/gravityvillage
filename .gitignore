@@ -1,2 +1,5 @@
-build
-doc
+*.o
+bin/CMakeCache.txt
+bin/CMakeFiles
+bin/Makefile
+bin/cmake_install.cmake
