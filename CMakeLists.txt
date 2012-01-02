@@ -4,20 +4,18 @@ project(GravityVillage)
 # Minimum version required
 cmake_minimum_required(VERSION 2.8)
 
-SET(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Debug)
 
-# A warning appeared because cmake must look for cppunit.
-# The warning told me to add this :
-if(COMMAND cmake_policy)
-  cmake_policy(SET CMP0003 NEW)
-endif(COMMAND cmake_policy)
+set(COMMON_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
+set(COMMON_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
 
-SET(COMMON_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
-SET(COMMON_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
+include_directories("include")
 
-ADD_EXECUTABLE(main src/main.cpp)
+add_library(timer SHARED src/Timer.cpp)
+add_executable(main src/main.cpp)
 
-TARGET_LINK_LIBRARIES(main glut)
+target_link_libraries(main timer)
+target_link_libraries(main glut)
 
 #
 #ADD_LIBRARY(Scene STATIC Scene.cpp)
