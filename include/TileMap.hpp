@@ -10,13 +10,13 @@ class TileMap
     int cols;
     int tile_w;
     int tile_h;
-    Texture *tileset;
+    Texture *texture;
     int **map;
   public:
     TileMap();
     ~TileMap();
     void init(int _rows, int _cols, int _tile_w, int _tile_h, const char *filename);
-    void draw();
+    void render();
 };
 
 #endif

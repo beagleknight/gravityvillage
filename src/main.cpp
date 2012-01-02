@@ -3,17 +3,19 @@
 #include <GL/glut.h>
 #include "Timer.hpp"
 #include "TileMap.hpp"
+#include "Player.hpp"
 
 void readKeyboard(unsigned char key, int x, int y);
 void init();
 void update();
 void reshape(int w, int h);
 void render();
-void drawFPS();
+void renderFPS();
 void output(int x, int y, char *string);
 
 Timer timer;
 TileMap map;
+Player player;
 
 int game_width = 640;
 int game_height = 480;
@@ -74,6 +76,7 @@ void init()
   glEnable(GL_ALPHA_TEST);
 
   map.init(20, 20, 32, 32, "res/test.png");
+  player.init(96, 96, "res/player.png");
 }
 
 void update()
@@ -87,13 +90,15 @@ void render()
   glClear(GL_COLOR_BUFFER_BIT);
   glLoadIdentity();
 
-  drawFPS();
-  map.draw();
+  map.render();
+  player.render();
+
+  renderFPS();
 
   glutSwapBuffers();
 }
 
-void drawFPS()
+void renderFPS()
 {
   char fps[100];
   sprintf(fps, "FPS: %f", timer.getFPS());

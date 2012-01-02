@@ -3,13 +3,13 @@
 
 TileMap::TileMap()
 {
-  tileset = 0;
+  texture = 0;
   map = 0;
 }
 
 TileMap::~TileMap()
 {
-  if(tileset != 0) delete tileset;
+  if(texture != 0) delete texture;
   if(map != 0)
   {
     for(int i = 0; i < rows; i++)
@@ -25,8 +25,8 @@ void TileMap::init(int _rows, int _cols, int _tile_w, int _tile_h, const char *f
   tile_w = _tile_w;
   tile_h = _tile_h;
 
-  tileset = new Texture();
-  if(!tileset->load(filename))
+  texture = new Texture();
+  if(!texture->load(filename))
   {
     printf("Error loading: texture '%s'\n", filename);
     exit(0);
@@ -50,12 +50,15 @@ void TileMap::init(int _rows, int _cols, int _tile_w, int _tile_h, const char *f
   }
 }
 
-void TileMap::draw()
+void TileMap::render()
 {
   int x;
   int y;
   int current_frame;
   float xo,xf;
+
+  glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, texture->getId());
 
   x = y = 0;
   for(int i = 0; i < rows; i++)
@@ -68,20 +71,14 @@ void TileMap::draw()
       xf = current_frame*0.25f + 0.25f;
 
       glPushMatrix();
-      glTranslatef(x, y, 0.0f);
-      glEnable(GL_TEXTURE_2D);
-      glBindTexture(GL_TEXTURE_2D, tileset->getId());
-      glBegin(GL_QUADS);
-      glVertex2f(0.0f, 0.0f);
-      glTexCoord2f(xo, 0.0f);
-      glVertex2f(0.0f, tile_h);
-      glTexCoord2f(xf, 0.0f);
-      glVertex2f(tile_w, tile_h);
-      glTexCoord2f(xf, 1.0f);
-      glVertex2f(tile_w, 0.0f);
-      glTexCoord2f(xo, 1.0f);
-      glEnd();
-      glDisable(GL_TEXTURE_2D);
+        glLoadIdentity();
+        glTranslatef(x, y, 0.0f);
+        glBegin(GL_QUADS);
+        glTexCoord2f(xo, 1.0f); glVertex2f(0.0f, 0.0f);
+        glTexCoord2f(xo, 0.0f); glVertex2f(0.0f, tile_h);
+        glTexCoord2f(xf, 0.0f); glVertex2f(tile_w, tile_h);
+        glTexCoord2f(xf, 1.0f); glVertex2f(tile_w, 0.0f);
+        glEnd();
       glPopMatrix();
 
       x += tile_w;
@@ -90,4 +87,6 @@ void TileMap::draw()
     x = 0;
     y += tile_h;
   }
+
+  glDisable(GL_TEXTURE_2D);
 }
