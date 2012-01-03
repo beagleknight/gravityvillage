@@ -6,6 +6,7 @@ class Timer
   public:
     Timer();
     ~Timer();
+    void init();
     float tick();
     float getFPS();
   private:

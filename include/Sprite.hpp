@@ -7,22 +7,31 @@ class Sprite
 {
   private:
     Texture *texture;
-    int x;
-    int y;
+    float vx;
+    float vy;
+    float x;
+    float y;
     int w;
     int h;
     int current_frame;
     int total_frames;
     int cols;
+    float animation_counter;
+    float animation_time;
   public:
     Sprite();
     ~Sprite();
-    void init(int _x, int _y, const char *filename);
+    void init(float _x, float _y, const char *filename);
     void render();
-    void setX(int _x);
-    int getX();
-    void setY(int _y);
-    int getY();
+    void update(float dt);
+    void setX(float _x);
+    float getX();
+    void setY(float _y);
+    float getY();
+    void setVelX(float _vx);
+    float getVelX();
+    void setVelY(float _vy);
+    float getVelY();
     void setWidth(int _w);
     int getWidth();
     void setHeight(int _h);
@@ -33,6 +42,7 @@ class Sprite
     int getTotalFrames();
     void setCols(int _cols);
     int getCols();
+    void setAnimationTime(float _animation_time);
 };
 
 #endif

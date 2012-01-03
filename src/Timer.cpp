@@ -4,15 +4,20 @@
 
 Timer::Timer()
 {
-  frames = 0;
-  fps = 0;
-  frame_time = 0;
-  current_time = glutGet(GLUT_ELAPSED_TIME);
+
 }
 
 Timer::~Timer()
 {
 
+}
+
+void Timer::init()
+{
+  frames = 0;
+  fps = 0;
+  frame_time = 0;
+  current_time = glutGet(GLUT_ELAPSED_TIME);
 }
 
 float Timer::tick()
@@ -34,7 +39,7 @@ float Timer::tick()
     frame_time = 0;
   }
 
-  return dt;
+  return dt / 1000.0f;
 }
 
 float Timer::getFPS()

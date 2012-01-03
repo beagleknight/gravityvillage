@@ -6,6 +6,8 @@
 #include "Player.hpp"
 
 void readKeyboard(unsigned char key, int x, int y);
+void readSpecialKeyboard(int key, int x, int y);
+void readSpecialUpKeyboard(int key, int x, int y);
 void init();
 void update();
 void reshape(int w, int h);
@@ -30,6 +32,8 @@ int main(int argc, char** argv)
   glutCreateWindow("Gravity Village");
 
   glutKeyboardFunc(readKeyboard);
+  glutSpecialFunc(readSpecialKeyboard);
+  glutSpecialUpFunc(readSpecialUpKeyboard);
   glutReshapeFunc(reshape);
   glutDisplayFunc(render);
   glutIdleFunc(update);
@@ -42,6 +46,24 @@ void readKeyboard(unsigned char key, int x, int y)
 {
   if(key == 27)
     exit(0);
+}
+
+void readSpecialKeyboard(int key, int x, int y)
+{
+  switch(key)
+  {
+    case GLUT_KEY_LEFT:
+      player.setVelX(-50);
+      break;
+    case GLUT_KEY_RIGHT:
+      player.setVelX(50);
+      break;
+  }
+}
+
+void readSpecialUpKeyboard(int key, int x, int y)
+{
+  player.setVelX(0);
 }
 
 void reshape(int w, int h)
@@ -58,11 +80,11 @@ void reshape(int w, int h)
   aspectRatio = (GLfloat)w / (GLfloat)h;
   if(w <= h)
   {
-    glOrtho(0.0f, game_height, 0, game_height / aspectRatio, 1.0, -1.0);
+    glOrtho(0.0f, game_height / 2, 0, (game_height / 2) / aspectRatio, 1.0, -1.0);
   }
   else
   {
-    glOrtho(0, game_height * aspectRatio, 0, game_height, 1.0, -1.0);
+    glOrtho(0, (game_height / 2) * aspectRatio, 0, game_height / 2, 1.0, -1.0);
 
   }
   glMatrixMode(GL_MODELVIEW);
@@ -75,13 +97,20 @@ void init()
   glAlphaFunc(GL_GREATER, 0.05f);
   glEnable(GL_ALPHA_TEST);
 
+  timer.init();
   map.init(20, 20, 32, 32, "res/test.png");
-  player.init(96, 96, "res/player.png");
+  player.init(96, 96, "res/link.png");
+  player.setCols(7);
+  player.setTotalFrames(7);
+  player.setWidth(16);
+  player.setHeight(24);
+  player.setAnimationTime(0.5f);
 }
 
 void update()
 {
-  timer.tick();
+  float dt = timer.tick();
+  player.update(dt);
   glutPostRedisplay();
 }
 

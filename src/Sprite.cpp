@@ -3,10 +3,13 @@
 
 Sprite::Sprite()
 {
+  x = y = vx = vy = 0;
   texture = 0;
   current_frame = 0;
   total_frames = 1;
   cols = 1;
+  animation_counter = 0;
+  animation_time = 0;
 }
 
 Sprite::~Sprite()
@@ -14,7 +17,7 @@ Sprite::~Sprite()
   if(texture != 0) delete texture;
 }
 
-void Sprite::init(int _x, int _y, const char *filename)
+void Sprite::init(float _x, float _y, const char *filename)
 {
   x = _x;
   y = _y;
@@ -55,24 +58,60 @@ void Sprite::render()
   glDisable(GL_TEXTURE_2D);
 }
 
-void Sprite::setX(int _x)
+void Sprite::update(float dt)
+{
+  x += vx*dt;
+  y += vy*dt;
+   
+  if(animation_time > 0)
+  {
+    animation_counter += dt;
+    if(animation_counter > animation_time)
+    {
+      current_frame = (current_frame + 1) % total_frames;
+      animation_counter = 0;
+    }
+  }
+}
+
+void Sprite::setX(float _x)
 {
   x = _x;
 }
 
-int Sprite::getX()
+float Sprite::getX()
 {
   return x;
 }
 
-void Sprite::setY(int _y)
+void Sprite::setY(float _y)
 {
   y = _y;
 }
 
-int Sprite::getY()
+float Sprite::getY()
 {
   return y;
+}
+
+void Sprite::setVelX(float _vx)
+{
+  vx = _vx;
+}
+
+float Sprite::getVelX()
+{
+  return vx;
+}
+
+void Sprite::setVelY(float _vy)
+{
+  vy = _vy;
+}
+
+float Sprite::getVelY()
+{
+  return vy;
 }
 
 void Sprite::setWidth(int _w)
@@ -123,4 +162,9 @@ void Sprite::setCols(int _cols)
 int Sprite::getCols()
 {
   return cols;
+}
+
+void Sprite::setAnimationTime(float _animation_time)
+{
+  animation_time = _animation_time;
 }
