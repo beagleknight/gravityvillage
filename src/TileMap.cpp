@@ -17,12 +17,18 @@ TileMap::~TileMap()
   }
 }
 
-void TileMap::init(int _rows, int _cols, int _tile_w, int _tile_h, const char *filename)
+void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w, int _tile_h, 
+    const char *filename)
 {
   rows = _rows;
   cols = _cols;
   tile_w = _tile_w;
   tile_h = _tile_h;
+  scene_w = _scene_w;
+  scene_h = _scene_h;
+
+  coord_x = 0;
+  coord_y = 0;
 
   sprite = new Sprite();
   sprite->init(0, 0, filename);
@@ -40,7 +46,16 @@ void TileMap::init(int _rows, int _cols, int _tile_w, int _tile_h, const char *f
     for(int j = 0; j < cols; j++)
     {
       if(i < 2)
-        map[i][j] = 1;
+      {
+        if( j > 5)
+        {
+          map[i][j] = 1;
+        }
+        else
+        {
+          map[i][j] = 4;
+        }
+      }
       else if(i < 3)
         map[i][j] = 0;
       else
@@ -51,13 +66,27 @@ void TileMap::init(int _rows, int _cols, int _tile_w, int _tile_h, const char *f
 
 void TileMap::render()
 {
-  int x;
-  int y;
+  int x, y;
+  int x0, xf;
+  int y0, yf;
 
-  x = y = 0;
-  for(int i = 0; i < rows; i++)
+  int offset_x = (int) coord_x % tile_w;
+  int offset_y = (int) coord_y % tile_h;
+
+  x = -offset_x; 
+  y = -offset_y;
+
+  x0 = (int) coord_x / tile_w;
+  xf = x0 + scene_w - 1;
+  if(offset_x != 0) xf++;
+
+  y0 = (int) coord_y / tile_h;
+  yf = y0 + scene_h - 1;
+  if(offset_y != 0) yf++;
+
+  for(int i = x0; i <= xf; i++)
   {
-    for(int j = 0; j < cols; j++)
+    for(int j = y0; j <= yf; j++)
     {
       sprite->setCurrentFrame(map[i][j]);
       sprite->setX(x);
@@ -67,7 +96,27 @@ void TileMap::render()
       x += tile_w;
     }
 
-    x = 0;
+    x = -offset_x;
     y += tile_h;
   }
+}
+
+void TileMap::setCoordX(float _coord_x)
+{
+  coord_x = _coord_x;
+}
+
+float TileMap::getCoordX()
+{
+  return coord_x;
+}
+
+void TileMap::setCoordY(float _coord_y)
+{
+  coord_y = _coord_y;
+}
+
+float TileMap::getCoordY()
+{
+  return coord_y;
 }

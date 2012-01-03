@@ -98,7 +98,7 @@ void init()
   glEnable(GL_ALPHA_TEST);
 
   timer.init();
-  map.init(20, 20, 32, 32, "res/test.png");
+  map.init(20, 20, 8, 10, 32, 32, "res/test.png");
   player.init(96, 96, "res/link.png");
   player.setCols(7);
   player.setTotalFrames(7);
@@ -111,6 +111,18 @@ void update()
 {
   float dt = timer.tick();
   player.update(dt);
+
+  if(player.getX() > (game_width / 4))
+  {
+    player.setX(player.getX() - player.getVelX() * dt);
+    map.setCoordX(map.getCoordX() + player.getVelX() * dt);
+  }
+  else if(player.getX() < (game_width / 4) && map.getCoordX() > 0)
+  {
+    player.setX(player.getX() + player.getVelX() * dt);
+    map.setCoordX(map.getCoordX() + player.getVelX() * dt);
+  }
+
   glutPostRedisplay();
 }
 
