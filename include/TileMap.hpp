@@ -1,7 +1,7 @@
 #ifndef CLASS_TILE_MAP_H
 #define CLASS_TILE_MAP_H
 
-#include "Texture.hpp"
+#include "Sprite.hpp"
 
 class TileMap
 {
@@ -10,7 +10,7 @@ class TileMap
     int cols;
     int tile_w;
     int tile_h;
-    Texture *texture;
+    Sprite *sprite;
     int **map;
   public:
     TileMap();
