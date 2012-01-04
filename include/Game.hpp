@@ -7,6 +7,7 @@
 #include "TileMap.hpp"
 #include "Player.hpp"
 #include "Item.hpp"
+#include "Enemy.hpp"
 
 class Game
 {
@@ -15,6 +16,7 @@ class Game
     TileMap map;
     Player player;
     Item item;
+    Enemy enemy;
     char keys[256];
     void renderFPS();
     void output(int x, int y, char *string);

@@ -30,6 +30,14 @@ void Game::init()
 
   item.init(256, 96, "res/apple.png");
   item.setScale(0.5f);
+
+  enemy.init(512, 96, "res/enemy.png");
+  enemy.setCols(4);
+  enemy.setTotalFrames(4);
+  enemy.setWidth(32);
+  enemy.setHeight(32);
+  enemy.setAnimationTime(0.5f);
+  enemy.setVelX(-70);
 }
 
 void Game::setCamera()
@@ -59,6 +67,7 @@ void Game::render()
   map.render();
   player.render();
   item.render();
+  enemy.render();
 
   startRenderGUI();
   renderFPS();
@@ -71,10 +80,16 @@ void Game::update()
 
   player.update(dt);
   item.update(dt);
+  enemy.update(dt);
 
   if(player.collision(&item))
   {
     item.setAlive(false);
+  }
+
+  if(player.collision(&enemy))
+  {
+    exit(0);
   }
 
   if(keys[27])
