@@ -1,26 +1,19 @@
-#include <stdio.h>
-#include <string.h>
 #include <GL/glut.h>
-#include "Timer.hpp"
-#include "TileMap.hpp"
-#include "Player.hpp"
+#include "Game.hpp"
 
 void readKeyboard(unsigned char key, int x, int y);
+void readUpKeyboard(unsigned char key, int x, int y);
 void readSpecialKeyboard(int key, int x, int y);
 void readSpecialUpKeyboard(int key, int x, int y);
 void init();
 void update();
 void reshape(int w, int h);
 void render();
-void renderFPS();
-void output(int x, int y, char *string);
-
-Timer timer;
-TileMap map;
-Player player;
 
 int game_width = 640;
 int game_height = 480;
+
+Game game(game_width, game_height);
 
 int main(int argc, char** argv)
 {
@@ -44,26 +37,22 @@ int main(int argc, char** argv)
 
 void readKeyboard(unsigned char key, int x, int y)
 {
-  if(key == 27)
-    exit(0);
+  game.readKeyboard(key, true);
+}
+
+void readUpKeyboard(unsigned char key, int x, int y)
+{
+  game.readKeyboard(key, false);
 }
 
 void readSpecialKeyboard(int key, int x, int y)
 {
-  switch(key)
-  {
-    case GLUT_KEY_LEFT:
-      player.setVelX(-50);
-      break;
-    case GLUT_KEY_RIGHT:
-      player.setVelX(50);
-      break;
-  }
+  game.readKeyboard(key, true);
 }
 
 void readSpecialUpKeyboard(int key, int x, int y)
 {
-  player.setVelX(0);
+  game.readKeyboard(key, false);
 }
 
 void reshape(int w, int h)
@@ -97,22 +86,12 @@ void init()
   glAlphaFunc(GL_GREATER, 0.05f);
   glEnable(GL_ALPHA_TEST);
 
-  timer.init();
-  map.init(20, 20, 8, 10, 32, 32, "res/test.png");
-  player.init(96, 96, "res/link.png");
-  player.setCols(7);
-  player.setTotalFrames(7);
-  player.setWidth(16);
-  player.setHeight(24);
-  player.setAnimationTime(0.5f);
+  game.init();
 }
 
 void update()
 {
-  float dt = timer.tick();
-
-  player.update(dt);
-
+  game.update();
   glutPostRedisplay();
 }
 
@@ -121,30 +100,7 @@ void render()
   glClear(GL_COLOR_BUFFER_BIT);
   glLoadIdentity();
 
-  map.render();
-  player.render();
-
-  renderFPS();
+  game.render();
 
   glutSwapBuffers();
-}
-
-void renderFPS()
-{
-  char fps[100];
-  sprintf(fps, "FPS: %f", timer.getFPS());
-  glColor3f(1.0f, 1.0f, 1.0f);
-  output(0, (game_height / 2) - 25, fps);
-}
-
-void output(int x, int y, char *string)
-{
-  int len, i;
-  void *font = GLUT_BITMAP_TIMES_ROMAN_24;
-
-  glRasterPos2f(x, y);
-  len = (int) strlen(string);
-  for (i = 0; i < len; i++) {
-    glutBitmapCharacter(font, string[i]);
-  }
 }
