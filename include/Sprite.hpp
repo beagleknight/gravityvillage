@@ -18,6 +18,8 @@ class Sprite
     int cols;
     float animation_counter;
     float animation_time;
+    float scale;
+    bool alive;
   public:
     Sprite();
     ~Sprite();
@@ -43,6 +45,10 @@ class Sprite
     void setCols(int _cols);
     int getCols();
     void setAnimationTime(float _animation_time);
+    void setScale(float _scale);
+    bool collision(Sprite *sprite);
+    void setAlive(bool _alive);
+    bool isAlive();
 };
 
 #endif

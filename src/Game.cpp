@@ -18,13 +18,18 @@ void Game::readKeyboard(int key, bool pressed)
 void Game::init()
 {
   timer.init();
+
   map.init(20, 20, 8, 10, 32, 32, "res/test.png");
+
   player.init(96, 96, "res/link.png");
   player.setCols(7);
   player.setTotalFrames(7);
   player.setWidth(16);
   player.setHeight(24);
   player.setAnimationTime(0.5f);
+
+  item.init(256, 96, "res/apple.png");
+  item.setScale(0.5f);
 }
 
 void Game::setCamera()
@@ -50,8 +55,10 @@ void Game::setCamera()
 void Game::render()
 {
   setCamera();
+
   map.render();
   player.render();
+  item.render();
 
   startRenderGUI();
   renderFPS();
@@ -63,6 +70,12 @@ void Game::update()
   float dt = timer.tick();
 
   player.update(dt);
+  item.update(dt);
+
+  if(player.collision(&item))
+  {
+    item.setAlive(false);
+  }
 
   if(keys[27])
     exit(0);

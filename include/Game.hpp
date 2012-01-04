@@ -6,6 +6,7 @@
 #include "Timer.hpp"
 #include "TileMap.hpp"
 #include "Player.hpp"
+#include "Item.hpp"
 
 class Game
 {
@@ -13,6 +14,7 @@ class Game
     Timer timer;
     TileMap map;
     Player player;
+    Item item;
     char keys[256];
     void renderFPS();
     void output(int x, int y, char *string);

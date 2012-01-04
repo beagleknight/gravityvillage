@@ -10,6 +10,8 @@ Sprite::Sprite()
   cols = 1;
   animation_counter = 0;
   animation_time = 0;
+  scale = 1;
+  alive = true;
 }
 
 Sprite::~Sprite()
@@ -34,28 +36,32 @@ void Sprite::init(float _x, float _y, const char *filename)
 
 void Sprite::render()
 {
-  float frame_w = (float) w / texture->getWidth();
-  float frame_h = (float) h / texture->getHeight();
-  int tx = current_frame % cols;
-  int ty = current_frame / cols;
+  if(alive)
+  {
+    float frame_w = (float) w / texture->getWidth();
+    float frame_h = (float) h / texture->getHeight();
+    int tx = current_frame % cols;
+    int ty = current_frame / cols;
 
-  glEnable(GL_TEXTURE_2D);
-  glBindTexture(GL_TEXTURE_2D, texture->getId());
-  glPushMatrix();
-    glLoadIdentity();
-    glTranslatef(x, y, 0.0f);
-    glBegin(GL_QUADS);
-      glTexCoord2f(tx * frame_w, ty * frame_h + frame_h);
-      glVertex2f(0.0f, 0.0f);
-      glTexCoord2f(tx * frame_w, ty * frame_h);
-      glVertex2f(0.0f, h);
-      glTexCoord2f(tx * frame_w + frame_w, ty * frame_h);
-      glVertex2f(w, h);
-      glTexCoord2f(tx * frame_w + frame_w, ty * frame_h + frame_h);
-      glVertex2f(w, 0.0f);
-    glEnd();
-  glPopMatrix();
-  glDisable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture->getId());
+    glPushMatrix();
+      glLoadIdentity();
+      glTranslatef(x, y, 0.0f);
+      glScalef(scale, scale, 1);
+      glBegin(GL_QUADS);
+        glTexCoord2f(tx * frame_w, ty * frame_h + frame_h);
+        glVertex2f(0.0f, 0.0f);
+        glTexCoord2f(tx * frame_w, ty * frame_h);
+        glVertex2f(0.0f, h);
+        glTexCoord2f(tx * frame_w + frame_w, ty * frame_h);
+        glVertex2f(w, h);
+        glTexCoord2f(tx * frame_w + frame_w, ty * frame_h + frame_h);
+        glVertex2f(w, 0.0f);
+      glEnd();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+  }
 }
 
 void Sprite::update(float dt)
@@ -167,4 +173,33 @@ int Sprite::getCols()
 void Sprite::setAnimationTime(float _animation_time)
 {
   animation_time = _animation_time;
+}
+
+void Sprite::setScale(float _scale)
+{
+  scale = _scale;
+}
+
+bool Sprite::collision(Sprite *sprite)
+{
+  int x1_1 = x;
+  int y1_1 = y;
+  int x2_1 = x + w;
+  int y2_1 = y + h;    
+  int x1_2 = sprite->getX();
+  int y1_2 = sprite->getY();
+  int x2_2 = sprite->getX() + sprite->getWidth();
+  int y2_2 = sprite->getY() + sprite->getHeight();
+
+  return (x1_1 < x2_2) && (x2_1 > x1_2) && (y1_1 < y2_2) && (y2_1 > y1_2);
+}
+
+void Sprite::setAlive(bool _alive)
+{
+  alive = _alive;
+}
+
+bool Sprite::isAlive()
+{
+  return alive;
 }

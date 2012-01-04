@@ -1,6 +1,8 @@
+*.so
 *.o
 bin/CMakeCache.txt
 bin/CMakeFiles
 bin/Makefile
 bin/cmake_install.cmake
 bin/main
+bin/*.so

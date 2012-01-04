@@ -16,6 +16,7 @@ add_library(texture SHARED src/Texture.cpp)
 add_library(sprite SHARED src/Sprite.cpp)
 add_library(tile_map SHARED src/TileMap.cpp)
 add_library(player SHARED src/Player.cpp)
+add_library(item SHARED src/Item.cpp)
 add_library(game SHARED src/Game.cpp)
 add_executable(main src/main.cpp)
 
@@ -24,28 +25,8 @@ target_link_libraries(main texture)
 target_link_libraries(main sprite)
 target_link_libraries(main tile_map)
 target_link_libraries(main player)
+target_link_libraries(main item)
 target_link_libraries(main game)
 target_link_libraries(main glut)
 target_link_libraries(main GLU)
 target_link_libraries(main corona)
-
-#
-#ADD_LIBRARY(Scene STATIC Scene.cpp)
-#ADD_LIBRARY(SceneManager STATIC SceneManager.cpp)
-#ADD_LIBRARY(Texture STATIC Texture.cpp)
-#ADD_LIBRARY(TextureManager STATIC TextureManager.cpp)
-#ADD_LIBRARY(Game STATIC Game.cpp)
-#ADD_EXECUTABLE(main main.cpp)
-#
-#TARGET_LINK_LIBRARIES(main Game)
-#TARGET_LINK_LIBRARIES(main SceneManager)
-#TARGET_LINK_LIBRARIES(main TextureManager)
-#TARGET_LINK_LIBRARIES(main Scene)
-#TARGET_LINK_LIBRARIES(main Texture)
-#TARGET_LINK_LIBRARIES(main GLU)
-#TARGET_LINK_LIBRARIES(main corona)
-#
-#ADD_LIBRARY(GameTest STATIC test/GameTest.cpp)
-
-#
-#TARGET_LINK_LIBRARIES(test cppunit)
