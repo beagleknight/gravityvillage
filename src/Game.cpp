@@ -1,9 +1,8 @@
 #include "Game.hpp"
 
-Game::Game(int _game_width, int _game_height)
+Game::Game()
 {
-  game_width = _game_width;
-  game_height = _game_height;
+
 }
 
 Game::~Game()
@@ -28,11 +27,35 @@ void Game::init()
   player.setAnimationTime(0.5f);
 }
 
+void Game::setCamera()
+{
+  GLfloat aspectRatio;
+  aspectRatio = (GLfloat) window_w / (GLfloat) window_h;
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+
+  gluPerspective(90,aspectRatio,1,1000);
+
+  gluLookAt(
+      player.getX(), player.getY(), 100,
+      player.getX(), player.getY(), 0,
+      0, 1, 0
+  );
+  
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+}
+
 void Game::render()
 {
+  setCamera();
   map.render();
   player.render();
+
+  startRenderGUI();
   renderFPS();
+  endRenderGUI();
 }
 
 void Game::update()
@@ -56,7 +79,7 @@ void Game::renderFPS()
   char fps[100];
   sprintf(fps, "FPS: %f", timer.getFPS());
   glColor3f(1.0f, 1.0f, 1.0f);
-  output(0, (game_height / 2) - 25, fps);
+  output(0, 25, fps);
 }
 
 void Game::output(int x, int y, char *string)
@@ -69,4 +92,53 @@ void Game::output(int x, int y, char *string)
   for (i = 0; i < len; i++) {
     glutBitmapCharacter(font, string[i]);
   }
+}
+
+void Game::startRenderGUI()
+{
+	// switch to projection mode
+	glMatrixMode(GL_PROJECTION);
+
+	// save previous matrix which contains the
+	//settings for the perspective projection
+	glPushMatrix();
+
+	// reset matrix
+	glLoadIdentity();
+
+	// set a 2D orthographic projection
+	gluOrtho2D(0, window_w, window_h, 0);
+
+	// switch back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void Game::endRenderGUI()
+{
+  glMatrixMode(GL_PROJECTION);
+	// restore previous projection matrix
+	glPopMatrix();
+
+	// get back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void Game::setWindowWidth(int _window_w)
+{
+  window_w = _window_w;
+}
+
+int Game::getWindowWidth()
+{
+  return window_w; 
+}
+
+void Game::setWindowHeight(int _window_h)
+{
+  window_h = _window_h;
+}
+
+int Game::getWindowHeight()
+{
+  return window_h;
 }

@@ -16,15 +16,22 @@ class Game
     char keys[256];
     void renderFPS();
     void output(int x, int y, char *string);
-    int game_width;
-    int game_height;
+    int window_w;
+    int window_h; 
   public:
-    Game(int _game_width, int _game_height);
+    Game();
     ~Game();
     void readKeyboard(int key, bool pressed);
     void init();
+    void setCamera();
     void render();
     void update();
+    void startRenderGUI();
+    void endRenderGUI();
+    void setWindowWidth(int _window_w);
+    int getWindowWidth();
+    void setWindowHeight(int _window_h);
+    int getWindowHeight();
 };
 
 #endif

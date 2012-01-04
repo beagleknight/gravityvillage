@@ -10,17 +10,17 @@ void update();
 void reshape(int w, int h);
 void render();
 
-int game_width = 640;
-int game_height = 480;
-
-Game game(game_width, game_height);
+Game game;
 
 int main(int argc, char** argv)
 {
+  game.setWindowWidth(640);
+  game.setWindowHeight(480);
+
   glutInit(&argc, argv);
 
   glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE); 
-  glutInitWindowSize(game_width, game_height);
+  glutInitWindowSize(game.getWindowWidth(), game.getWindowHeight());
   glutInitWindowPosition(100, 100);
   glutCreateWindow("Gravity Village");
 
@@ -32,6 +32,7 @@ int main(int argc, char** argv)
   glutIdleFunc(update);
 
   init();
+
   glutMainLoop();
 }
 
@@ -57,27 +58,12 @@ void readSpecialUpKeyboard(int key, int x, int y)
 
 void reshape(int w, int h)
 {
-  GLfloat aspectRatio;
-
   if(h == 0) h = 1;
 
   glViewport(0, 0, w, h);
 
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-
-  aspectRatio = (GLfloat)w / (GLfloat)h;
-  if(w <= h)
-  {
-    glOrtho(0.0f, game_height / 2, 0, (game_height / 2) / aspectRatio, 1.0, -1.0);
-  }
-  else
-  {
-    glOrtho(0, (game_height / 2) * aspectRatio, 0, game_height / 2, 1.0, -1.0);
-
-  }
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
+  game.setWindowWidth(w);
+  game.setWindowHeight(h);
 }
 
 void init()
