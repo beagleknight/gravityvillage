@@ -67,26 +67,11 @@ void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w
 void TileMap::render()
 {
   int x, y;
-  int x0, xf;
-  int y0, yf;
 
-  int offset_x = (int) coord_x % tile_w;
-  int offset_y = (int) coord_y % tile_h;
-
-  x = -offset_x; 
-  y = -offset_y;
-
-  x0 = (int) coord_x / tile_w;
-  xf = x0 + scene_w - 1;
-  if(offset_x != 0) xf++;
-
-  y0 = (int) coord_y / tile_h;
-  yf = y0 + scene_h - 1;
-  if(offset_y != 0) yf++;
-
-  for(int i = x0; i <= xf; i++)
+  x = y = 0;
+  for(int i = 0; i < rows; i++)
   {
-    for(int j = y0; j <= yf; j++)
+    for(int j = 0; j < cols; j++)
     {
       sprite->setCurrentFrame(map[i][j]);
       sprite->setX(x);
@@ -96,7 +81,7 @@ void TileMap::render()
       x += tile_w;
     }
 
-    x = -offset_x;
+    x = 0;
     y += tile_h;
   }
 }

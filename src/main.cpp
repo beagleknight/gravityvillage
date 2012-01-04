@@ -110,18 +110,8 @@ void init()
 void update()
 {
   float dt = timer.tick();
-  player.update(dt);
 
-  if(player.getX() > (game_width / 4))
-  {
-    player.setX(player.getX() - player.getVelX() * dt);
-    map.setCoordX(map.getCoordX() + player.getVelX() * dt);
-  }
-  else if(player.getX() < (game_width / 4) && map.getCoordX() > 0)
-  {
-    player.setX(player.getX() + player.getVelX() * dt);
-    map.setCoordX(map.getCoordX() + player.getVelX() * dt);
-  }
+  player.update(dt);
 
   glutPostRedisplay();
 }
@@ -144,7 +134,7 @@ void renderFPS()
   char fps[100];
   sprintf(fps, "FPS: %f", timer.getFPS());
   glColor3f(1.0f, 1.0f, 1.0f);
-  output(0, game_height - 25, fps);
+  output(0, (game_height / 2) - 25, fps);
 }
 
 void output(int x, int y, char *string)
