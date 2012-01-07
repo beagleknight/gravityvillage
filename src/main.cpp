@@ -5,23 +5,34 @@ void readKeyboard(unsigned char key, int x, int y);
 void readUpKeyboard(unsigned char key, int x, int y);
 void readSpecialKeyboard(int key, int x, int y);
 void readSpecialUpKeyboard(int key, int x, int y);
+void reshape(int w, int h);
 void init();
 void update();
-void reshape(int w, int h);
 void render();
+
+#define GAME_WIDTH 640
+#define GAME_HEIGHT 480
 
 Game game;
 
 int main(int argc, char** argv)
 {
-  game.setWindowWidth(640);
-  game.setWindowHeight(480);
+  int res_x, res_y, pos_x, pos_y;
+
+  game.setWindowWidth(GAME_WIDTH);
+  game.setWindowHeight(GAME_HEIGHT);
 
   glutInit(&argc, argv);
 
   glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE); 
+
+  res_x = glutGet(GLUT_SCREEN_WIDTH);
+  res_y = glutGet(GLUT_SCREEN_HEIGHT);
+  pos_x = (res_x>>1)-(game.getWindowWidth()>>1);
+  pos_y = (res_y>>1)-(game.getWindowHeight()>>1);
+
+  glutInitWindowPosition(pos_x,pos_y);
   glutInitWindowSize(game.getWindowWidth(), game.getWindowHeight());
-  glutInitWindowPosition(100, 100);
   glutCreateWindow("Gravity Village");
 
   glutKeyboardFunc(readKeyboard);
