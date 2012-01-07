@@ -3,6 +3,7 @@
 Enemy::Enemy()
 {
   range = 2;
+  setType(ENTITY_ENEMY);
 }
 
 Enemy::~Enemy()

@@ -11,6 +11,7 @@
 #include "Enemy.hpp"
 #include "Town.hpp"
 #include "TextureManager.hpp"
+#include "Scene.hpp"
 
 class Game
 {
@@ -23,19 +24,16 @@ class Game
     int window_h; 
     bool show_console;
   public:
-    TileMap map;
-    Player player;
-    Item item;
-    Town town;
+    Scene *scene;
     TextureManager *tm;
-    std::vector<Enemy*> enemies;
     Game();
     ~Game();
-    void readKeyboard(int key, bool pressed);
     void init();
-    void setCamera();
-    void render();
     void update();
+    void render();
+    void readKeyboard(int key, bool pressed);
+    bool keyPressed(int key);
+    void setCamera();
     void startRenderGUI();
     void endRenderGUI();
     void setWindowWidth(int _window_w);
@@ -44,7 +42,7 @@ class Game
     int getWindowHeight();
     void drawAxis();
     TextureManager* getTextureManager();
-    bool keyPressed(int key);
+    Scene* getScene();
 };
 
 #endif

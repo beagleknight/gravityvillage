@@ -5,6 +5,7 @@ Town::Town()
 {
   bubble = 0;
   item = 0;
+  setType(ENTITY_TOWN);
 }
 
 Town::~Town()

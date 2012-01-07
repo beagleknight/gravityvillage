@@ -1,9 +1,10 @@
 #ifndef CLASS_TILE_MAP_H
 #define CLASS_TILE_MAP_H
 
+#include "Entity.hpp"
 #include "Sprite.hpp"
 
-class TileMap
+class TileMap : public Entity
 {
   private:
     int rows;
@@ -21,6 +22,7 @@ class TileMap
     ~TileMap();
     void init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w, int _tile_h, 
         int texture_id);
+    void update(float dt);
     void render();
     void setCoordX(float _coord_x);
     float getCoordX();

@@ -73,9 +73,10 @@ void Sprite::update(float dt)
   old_x = x;
   x += vx*dt;
   
+  TileMap* map = (TileMap*) game.getScene()->findEntity(ENTITY_MAP);
   if(vx > 0)
   {
-    if(game.map.getTileType(getRow(), getCol()) == 0) 
+    if(map->getTileType(getRow(), getCol()) == 0) 
     {
       collisionMap(COLLISION_X);
       x = old_x;
@@ -85,7 +86,7 @@ void Sprite::update(float dt)
   {
     float tmp = x;
     x += getWidth();
-    if(game.map.getTileType(getRow(), getCol()) == 0) 
+    if(map->getTileType(getRow(), getCol()) == 0) 
     {
       collisionMap(COLLISION_X);
       x = old_x;
@@ -100,7 +101,7 @@ void Sprite::update(float dt)
   y += vy*dt;
   if(vy < 0)
   {
-    if(game.map.getTileType(getRow(), getCol()) == 0)
+    if(map->getTileType(getRow(), getCol()) == 0)
     {
       collisionMap(COLLISION_Y);
       y = old_y;
@@ -110,7 +111,7 @@ void Sprite::update(float dt)
   {
     float tmp = y;
     y += getHeight();
-    if(game.map.getTileType(getRow(), getCol()) == 0) 
+    if(map->getTileType(getRow(), getCol()) == 0) 
     {
       collisionMap(COLLISION_Y);
       y = old_y;

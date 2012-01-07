@@ -2,7 +2,7 @@
 
 Item::Item()
 {
-
+  setType(ENTITY_ITEM);
 }
 
 Item::~Item()

@@ -4,9 +4,10 @@
 #define COLLISION_X 0
 #define COLLISION_Y 1
 
+#include "Entity.hpp"
 #include "Texture.hpp"
 
-class Sprite
+class Sprite : public Entity
 {
   private:
     Texture *texture;

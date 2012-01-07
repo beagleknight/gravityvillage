@@ -9,6 +9,7 @@ TileMap::TileMap()
 {
   sprite = 0;
   map = 0;
+  setType(ENTITY_MAP);
 }
 
 TileMap::~TileMap()
@@ -73,6 +74,11 @@ void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w
   }
 
   else cout << "Unable to open file"; 
+}
+
+void TileMap::update(float dt)
+{
+
 }
 
 void TileMap::render()

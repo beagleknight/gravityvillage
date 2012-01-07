@@ -9,6 +9,7 @@ Player::Player()
 {
   move_velocity = 100;
   jumping = false;
+  setType(ENTITY_PLAYER);
 }
 
 Player::~Player()
@@ -41,26 +42,28 @@ void Player::update(float dt)
   }
 
   // check collisions against items
-  if(collision(&game.item))
+  Item *item = (Item*) game.getScene()->findEntity(ENTITY_ITEM);
+  if(item != 0 && collision(item))
   {
-    game.item.setAlive(false);
-    pickItem(&game.item);
+    pickItem(item);
   }
 
   // check collision against town
-  if(collision(&game.town))
+  Town *town = (Town*) game.getScene()->findEntity(ENTITY_TOWN);
+  if(town != 0 && collision(town))
   {
-    if(backpack != 0 && (backpack->getItemType() == game.town.itemRequested()))
+    if(backpack != 0 && (backpack->getItemType() == town->itemRequested()))
       exit(0);
   }
 
-  // check collision agains enemies
-  for(int i = 0; i < game.enemies.size(); i++)
+  // check collision against enemies
+  std::vector<Entity*> enemies = game.getScene()->findAllEntities(ENTITY_ENEMY);
+  std::vector<Entity*>::iterator it = enemies.begin();
+  while(it != enemies.end())
   {
-    if(collision(game.enemies[i]))
-    {
+    if(collision((Enemy*) (*it)))
       exit(0);
-    }
+    it++;
   }
 
   if(getY() < 0)
@@ -73,14 +76,14 @@ void Player::move_right()
 {
   setVelX(move_velocity);
   setRotation(0);
-  setAnimationTime(0.5f);
+  setAnimationTime(0.25f);
 }
 
 void Player::move_left()
 {
   setVelX(-move_velocity);
   setRotation(-180);
-  setAnimationTime(0.5f);
+  setAnimationTime(0.25f);
 }
 
 void Player::jump()
@@ -113,6 +116,7 @@ void Player::collisionMap(int type)
 
 void Player::pickItem(Item *item)
 {
+  item->setAlive(false);
   backpack = item;
 }
 
