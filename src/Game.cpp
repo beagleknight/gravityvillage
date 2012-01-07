@@ -76,9 +76,22 @@ void Game::setCamera()
 
   gluPerspective(90,aspectRatio,1,1000);
 
+  static float camera_x;
+  static float camera_y;
+
+  if(player.getX() >= 200 && player.getX() <= 760)
+  {
+    camera_x = (int) player.getX();
+  }
+
+  if(player.getY() >= 96 && player.getY() <= 580)
+  {
+    camera_y = (int) player.getY();
+  }
+
   gluLookAt(
-      player.getX(), player.getY()+64, 150,
-      player.getX(), player.getY()+64, 0,
+      camera_x, camera_y+64, 150,
+      camera_x, camera_y+64, 0,
       0, 1, 0
   );
   

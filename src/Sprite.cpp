@@ -52,7 +52,7 @@ void Sprite::render()
     glBindTexture(GL_TEXTURE_2D, texture->getId());
     glPushMatrix();
       glLoadIdentity();
-      glTranslatef(x+w/2, y+h/2, 0.0f);
+      glTranslatef((int) x+w/2, (int) y+h/2, 0.0f);
       glRotatef(rotation, 0, 1, 0);
       glScalef(scale, scale, 1);
       glTranslatef(-w/2, -h/2, 0.0f);

@@ -18,6 +18,9 @@ Player::~Player()
 
 void Player::update(float dt)
 {
+  if(getY() < 0)
+    exit(0);
+
   if(isJumping())
   {
     setVelY(jump_velocity);
@@ -25,7 +28,7 @@ void Player::update(float dt)
   }
   else
   {
-    setVelY(-250);
+    setVelY(-250*dt);
   }
 
   if(collision(&game.item))
