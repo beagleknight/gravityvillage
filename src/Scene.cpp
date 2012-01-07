@@ -7,6 +7,11 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+  clean();
+}
+
+void Scene::clean()
+{
   entities.clear();
   gui_elements.clear();
 }

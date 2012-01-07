@@ -9,6 +9,7 @@ class Scene
   public:
     Scene();
     ~Scene();
+    void clean();
     void update(float dt);
     void render(); 
     void renderGUI();

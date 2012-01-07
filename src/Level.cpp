@@ -15,6 +15,8 @@ Level::~Level()
 
 void Level::init()
 {
+  clean();
+
   TiXmlNode* xLevel;   
   TiXmlDocument doc(filename);
   

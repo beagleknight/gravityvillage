@@ -57,7 +57,7 @@ void Game::init()
   scene = new Scene();
   text_label = new TextLabel(255, 100, "GAME OVER");
   scene->addGUIElement(text_label);
-  text_label = new TextLabel(220, 400, "- Press ESC to exit -");
+  text_label = new TextLabel(220, 400, "- Press SPACE to continue -");
   scene->addGUIElement(text_label);
   sm->addScene(SCENE_END, scene);
 
@@ -79,6 +79,7 @@ void Game::update()
     {
       gameover = false;
       sm->setActive(SCENE_GAME);
+      ((Level*) sm->getActive())->init();
     }
   }
   else // game scene is active
