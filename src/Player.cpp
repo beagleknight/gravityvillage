@@ -18,31 +18,43 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-  if(getY() < 0)
-    exit(0);
+  // control logic
+  if(game.keyPressed(GLUT_KEY_LEFT))
+    move_left();
+  else if(game.keyPressed(GLUT_KEY_RIGHT))
+    move_right();
+  else
+    halt();
+  
+  if(game.keyPressed(32)) // space to jump
+    jump();
 
+  // jumping logic
   if(isJumping())
   {
     setVelY(jump_velocity);
-    jump_velocity -= 250*dt;
+    jump_velocity -= 300*dt;
   }
   else
   {
     setVelY(-250);
   }
 
+  // check collisions against items
   if(collision(&game.item))
   {
     game.item.setAlive(false);
     pickItem(&game.item);
   }
 
+  // check collision against town
   if(collision(&game.town))
   {
     if(backpack != 0 && (backpack->getItemType() == game.town.itemRequested()))
       exit(0);
   }
 
+  // check collision agains enemies
   for(int i = 0; i < game.enemies.size(); i++)
   {
     if(collision(game.enemies[i]))
@@ -50,6 +62,9 @@ void Player::update(float dt)
       exit(0);
     }
   }
+
+  if(getY() < 0)
+    exit(0);
 
   Sprite::update(dt);
 }

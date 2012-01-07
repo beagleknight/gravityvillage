@@ -44,6 +44,7 @@ class Game
     int getWindowHeight();
     void drawAxis();
     TextureManager* getTextureManager();
+    bool keyPressed(int key);
 };
 
 #endif

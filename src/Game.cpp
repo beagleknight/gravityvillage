@@ -148,16 +148,6 @@ void Game::update()
     show_console = true;
   else
     show_console = false;
-
-  if(keys[GLUT_KEY_LEFT])
-    player.move_left();
-  else if(keys[GLUT_KEY_RIGHT])
-    player.move_right();
-  else
-    player.halt();
-
-  if(keys[32])
-    player.jump();
 }
 
 void Game::renderConsole()
@@ -257,4 +247,9 @@ void Game::drawAxis()
 TextureManager* Game::getTextureManager()
 {
   return tm;
+}
+
+bool Game::keyPressed(int key)
+{
+  return keys[key];
 }
