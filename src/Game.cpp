@@ -19,19 +19,19 @@ void Game::init()
 {
   timer.init();
 
-  map.init(20, 20, 8, 10, 32, 32, "res/test.png");
+  map.init(25, 30, 8, 10, 32, 32, "res/test.png");
 
-  player.init(96, 96, "res/link.png");
+  player.init(3, 8, "res/link.png");
   player.setCols(7);
   player.setTotalFrames(7);
   player.setWidth(16);
   player.setHeight(24);
   player.setAnimationTime(0.5f);
 
-  item.init(256, 96, "res/apple.png");
+  item.init(15, 6, "res/apple.png");
   item.setScale(0.5f);
 
-  enemy.init(512, 96, "res/enemy.png");
+  enemy.init(3, 15, "res/enemy.png");
   enemy.setCols(4);
   enemy.setTotalFrames(4);
   enemy.setWidth(32);
@@ -51,8 +51,8 @@ void Game::setCamera()
   gluPerspective(90,aspectRatio,1,1000);
 
   gluLookAt(
-      player.getX(), player.getY(), 100,
-      player.getX(), player.getY(), 0,
+      player.getX(), player.getY()+64, 150,
+      player.getX(), player.getY()+64, 0,
       0, 1, 0
   );
   
@@ -93,13 +93,26 @@ void Game::update()
   }
 
   if(keys[27])
+  {
     exit(0);
+  }
   else if(keys[GLUT_KEY_LEFT])
+  {
     player.setVelX(-50);
+  }
   else if(keys[GLUT_KEY_RIGHT])
+  {
     player.setVelX(50);
+  }
+  else if(keys[32])
+  {
+    player.setVelY(50);
+  }
   else
+  {
     player.setVelX(0);
+    player.setVelY(-10);
+  }
 }
 
 void Game::renderFPS()

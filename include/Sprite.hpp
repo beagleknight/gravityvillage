@@ -23,7 +23,7 @@ class Sprite
   public:
     Sprite();
     ~Sprite();
-    void init(float _x, float _y, const char *filename);
+    void init(int row, int col, const char *filename);
     void render();
     void update(float dt);
     void setX(float _x);

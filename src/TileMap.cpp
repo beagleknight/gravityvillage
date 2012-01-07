@@ -1,4 +1,9 @@
 #include "TileMap.hpp"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <string.h>
+using namespace std;
 
 TileMap::TileMap()
 {
@@ -41,27 +46,33 @@ void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w
   for(int i = 0; i < rows; i++)
     map[i] = new int[cols];
 
-  for(int i = 0; i < rows; i++)
+  
+  // reading level hard coded
+  int i, j;
+  string line;
+  char * pch;
+
+  i = j = 0;
+  ifstream myfile ("res/level0.txt");
+  if (myfile.is_open())
   {
-    for(int j = 0; j < cols; j++)
+    while ( myfile.good() )
     {
-      if(i < 2)
+      getline (myfile,line);
+      pch = strtok ((char *)line.c_str(),",");
+      while (pch != NULL)
       {
-        if( j > 5)
-        {
-          map[i][j] = 1;
-        }
-        else
-        {
-          map[i][j] = 4;
-        }
+        map[i][j] = atoi(pch);
+        j++;
+        pch = strtok (NULL, ",");
       }
-      else if(i < 3)
-        map[i][j] = 0;
-      else
-        map[i][j] = 2;
+      j = 0;
+      i++;
     }
+    myfile.close();
   }
+
+  else cout << "Unable to open file"; 
 }
 
 void TileMap::render()
@@ -69,7 +80,7 @@ void TileMap::render()
   int x, y;
 
   x = y = 0;
-  for(int i = 0; i < rows; i++)
+  for(int i = rows-1; i >= 0; i--)
   {
     for(int j = 0; j < cols; j++)
     {

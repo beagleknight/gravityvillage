@@ -19,10 +19,10 @@ Sprite::~Sprite()
   if(texture != 0) delete texture;
 }
 
-void Sprite::init(float _x, float _y, const char *filename)
+void Sprite::init(int row, int col, const char *filename)
 {
-  x = _x;
-  y = _y;
+  x = col*32;
+  y = row*32;
 
   texture = new Texture();
   if(!texture->load(filename))
