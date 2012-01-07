@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <vector>
 #include "Timer.hpp"
 #include "TileMap.hpp"
 #include "Player.hpp"
@@ -18,11 +19,12 @@ class Game
     void output(int x, int y, char *string);
     int window_w;
     int window_h; 
+    bool show_console;
   public:
     TileMap map;
     Player player;
     Item item;
-    Enemy enemy;
+    std::vector<Enemy*> enemies;
     Game();
     ~Game();
     void readKeyboard(int key, bool pressed);

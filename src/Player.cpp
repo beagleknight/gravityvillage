@@ -33,9 +33,12 @@ void Player::update(float dt)
     game.item.setAlive(false);
   }
 
-  if(collision(&game.enemy))
+  for(int i = 0; i < game.enemies.size(); i++)
   {
-    exit(0);
+    if(collision(game.enemies[i]))
+    {
+      exit(0);
+    }
   }
 
   Sprite::update(dt);

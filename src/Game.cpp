@@ -2,12 +2,12 @@
 
 Game::Game()
 {
-
+  show_console = false;
 }
 
 Game::~Game()
 {
-
+  enemies.clear();
 }
 
 void Game::readKeyboard(int key, bool pressed)
@@ -29,15 +29,41 @@ void Game::init()
   player.setAnimationTime(0.5f);
 
   item.init(15, 6, "res/apple.png");
-  item.setScale(0.5f);
 
-  enemy.init(3, 12, "res/enemy.png");
-  enemy.setCols(4);
-  enemy.setTotalFrames(4);
-  enemy.setWidth(32);
-  enemy.setHeight(32);
-  enemy.setAnimationTime(0.5f);
-  enemy.setVelX(-70);
+  Enemy *enemy;
+
+  enemy = new Enemy();
+  enemy->init(3, 12, "res/enemy.png");
+  enemy->setCols(4);
+  enemy->setTotalFrames(4);
+  enemy->setWidth(32);
+  enemy->setHeight(32);
+  enemy->setAnimationTime(0.5f);
+  enemy->setVelX(-70);
+
+  enemies.push_back(enemy);
+
+  enemy = new Enemy();
+  enemy->init(12, 18, "res/enemy.png");
+  enemy->setCols(4);
+  enemy->setTotalFrames(4);
+  enemy->setWidth(32);
+  enemy->setHeight(32);
+  enemy->setAnimationTime(0.5f);
+  enemy->setVelX(-70);
+
+  enemies.push_back(enemy);
+
+  enemy = new Enemy();
+  enemy->init(15, 5, "res/enemy.png");
+  enemy->setCols(4);
+  enemy->setTotalFrames(4);
+  enemy->setWidth(32);
+  enemy->setHeight(32);
+  enemy->setAnimationTime(0.5f);
+  enemy->setVelX(-70);
+
+  enemies.push_back(enemy);
 }
 
 void Game::setCamera()
@@ -67,7 +93,11 @@ void Game::render()
   map.render();
   player.render();
   item.render();
-  enemy.render();
+
+  for(int i = 0; i < enemies.size(); i++)
+  {
+    enemies[i]->render();
+  }
 
   startRenderGUI();
   renderConsole();
@@ -80,10 +110,19 @@ void Game::update()
 
   player.update(dt);
   item.update(dt);
-  enemy.update(dt);
+
+  for(int i = 0; i < enemies.size(); i++)
+  {
+    enemies[i]->update(dt);
+  }
 
   if(keys[27])
     exit(0);
+  
+  if(keys[186])
+    show_console = true;
+  else
+    show_console = false;
 
   if(keys[GLUT_KEY_LEFT])
     player.move_left();
@@ -100,20 +139,21 @@ void Game::renderConsole()
 {
   char message[100];
 
-  glColor3f(1.0f, 1.0f, 1.0f);
+  if(show_console)
+  {
+    glColor3f(1.0f, 1.0f, 1.0f);
 
-  sprintf(message, "FPS: %f", timer.getFPS());
-  output(0, 25, message);
-  sprintf(message, "Player position: %g,%g", player.getX(), player.getY());
-  output(0, 50, message);
-  sprintf(message, "Player is jumping: %d", player.isJumping());
-  output(0, 75, message);
-  sprintf(message, "Tile position: %d,%d", player.getRow(), player.getCol());
-  output(0, 100, message);
-  sprintf(message, "Tile type: %d", map.getTileType(player.getRow(), player.getCol()));
-  output(0, 125, message);
-  sprintf(message, "Enemy position: %g, %g", enemy.getX(), enemy.getY());
-  output(0, 150, message);
+    sprintf(message, "FPS: %f", timer.getFPS());
+    output(0, 25, message);
+    sprintf(message, "Player position: %g,%g", player.getX(), player.getY());
+    output(0, 50, message);
+    sprintf(message, "Player is jumping: %d", player.isJumping());
+    output(0, 75, message);
+    sprintf(message, "Tile position: %d,%d", player.getRow(), player.getCol());
+    output(0, 100, message);
+    sprintf(message, "Tile type: %d", map.getTileType(player.getRow(), player.getCol()));
+    output(0, 125, message);
+  }
 }
 
 void Game::output(int x, int y, char *string)
