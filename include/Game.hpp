@@ -13,16 +13,16 @@ class Game
 {
   private:
     Timer timer;
-    TileMap map;
-    Player player;
-    Item item;
-    Enemy enemy;
     char keys[256];
-    void renderFPS();
+    void renderConsole();
     void output(int x, int y, char *string);
     int window_w;
     int window_h; 
   public:
+    TileMap map;
+    Player player;
+    Item item;
+    Enemy enemy;
     Game();
     ~Game();
     void readKeyboard(int key, bool pressed);
@@ -36,6 +36,7 @@ class Game
     int getWindowWidth();
     void setWindowHeight(int _window_h);
     int getWindowHeight();
+    void drawAxis();
 };
 
 #endif

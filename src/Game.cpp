@@ -28,16 +28,16 @@ void Game::init()
   player.setHeight(24);
   player.setAnimationTime(0.5f);
 
-  item.init(15, 6, "res/apple.png");
-  item.setScale(0.5f);
+  //item.init(15, 6, "res/apple.png");
+  //item.setScale(0.5f);
 
-  enemy.init(3, 15, "res/enemy.png");
-  enemy.setCols(4);
-  enemy.setTotalFrames(4);
-  enemy.setWidth(32);
-  enemy.setHeight(32);
-  enemy.setAnimationTime(0.5f);
-  enemy.setVelX(-70);
+  //enemy.init(3, 15, "res/enemy.png");
+  //enemy.setCols(4);
+  //enemy.setTotalFrames(4);
+  //enemy.setWidth(32);
+  //enemy.setHeight(32);
+  //enemy.setAnimationTime(0.5f);
+  //enemy.setVelX(-70);
 }
 
 void Game::setCamera()
@@ -64,13 +64,15 @@ void Game::render()
 {
   setCamera();
 
+  drawAxis();
+
   map.render();
   player.render();
-  item.render();
-  enemy.render();
+  //item.render();
+  //enemy.render();
 
   startRenderGUI();
-  renderFPS();
+  renderConsole();
   endRenderGUI();
 }
 
@@ -79,48 +81,49 @@ void Game::update()
   float dt = timer.tick();
 
   player.update(dt);
-  item.update(dt);
-  enemy.update(dt);
+  //item.update(dt);
+  //enemy.update(dt);
 
-  if(player.collision(&item))
-  {
-    item.setAlive(false);
-  }
+  //if(player.collision(&item))
+  //{
+  //  item.setAlive(false);
+  //}
 
-  if(player.collision(&enemy))
-  {
-    exit(0);
-  }
+  //if(player.collision(&enemy))
+  //{
+  //  exit(0);
+  //}
 
   if(keys[27])
-  {
     exit(0);
-  }
-  else if(keys[GLUT_KEY_LEFT])
-  {
-    player.setVelX(-50);
-  }
+
+  if(keys[GLUT_KEY_LEFT])
+    player.move_left();
   else if(keys[GLUT_KEY_RIGHT])
-  {
-    player.setVelX(50);
-  }
-  else if(keys[32])
-  {
-    player.setVelY(50);
-  }
+    player.move_right();
   else
-  {
-    player.setVelX(0);
-    player.setVelY(-10);
-  }
+    player.halt();
+
+  if(keys[32])
+    player.jump();
 }
 
-void Game::renderFPS()
+void Game::renderConsole()
 {
-  char fps[100];
-  sprintf(fps, "FPS: %f", timer.getFPS());
+  char message[100];
+
   glColor3f(1.0f, 1.0f, 1.0f);
-  output(0, 25, fps);
+
+  sprintf(message, "FPS: %f", timer.getFPS());
+  output(0, 25, message);
+  sprintf(message, "Player position: %g,%g", player.getX(), player.getY());
+  output(0, 50, message);
+  sprintf(message, "Player is jumping: %d", player.isJumping());
+  output(0, 75, message);
+  sprintf(message, "Tile position: %d,%d", player.getRow(), player.getCol());
+  output(0, 100, message);
+  sprintf(message, "Tile type: %d", map.getTileType(player.getRow(), player.getCol()));
+  output(0, 125, message);
 }
 
 void Game::output(int x, int y, char *string)
@@ -182,4 +185,16 @@ void Game::setWindowHeight(int _window_h)
 int Game::getWindowHeight()
 {
   return window_h;
+}
+
+void Game::drawAxis()
+{
+  glBegin(GL_LINES);
+    glColor3f(1, 0, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(100, 0, 0);
+    glColor3f(0, 1, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(0, 100, 0);
+  glEnd();
 }

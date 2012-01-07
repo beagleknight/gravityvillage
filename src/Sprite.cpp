@@ -11,6 +11,7 @@ Sprite::Sprite()
   animation_counter = 0;
   animation_time = 0;
   scale = 1;
+  rotation = 0;
   alive = true;
 }
 
@@ -43,12 +44,15 @@ void Sprite::render()
     int tx = current_frame % cols;
     int ty = current_frame / cols;
 
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture->getId());
     glPushMatrix();
       glLoadIdentity();
-      glTranslatef(x, y, 0.0f);
+      glTranslatef(x+w/2, y+h/2, 0.0f);
+      glRotatef(rotation, 0, 1, 0);
       glScalef(scale, scale, 1);
+      glTranslatef(-w/2, -h/2, 0.0f);
       glBegin(GL_QUADS);
         glTexCoord2f(tx * frame_w, ty * frame_h + frame_h);
         glVertex2f(0.0f, 0.0f);
@@ -178,6 +182,11 @@ void Sprite::setAnimationTime(float _animation_time)
 void Sprite::setScale(float _scale)
 {
   scale = _scale;
+}
+
+void Sprite::setRotation(float _rotation)
+{
+  rotation = _rotation;
 }
 
 bool Sprite::collision(Sprite *sprite)

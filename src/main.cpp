@@ -25,6 +25,7 @@ int main(int argc, char** argv)
   glutCreateWindow("Gravity Village");
 
   glutKeyboardFunc(readKeyboard);
+  glutKeyboardUpFunc(readUpKeyboard);
   glutSpecialFunc(readSpecialKeyboard);
   glutSpecialUpFunc(readSpecialUpKeyboard);
   glutReshapeFunc(reshape);

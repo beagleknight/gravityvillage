@@ -26,6 +26,7 @@ class TileMap
     float getCoordX();
     void setCoordY(float _coord_y);
     float getCoordY();
+    int getTileType(int i, int j);
 };
 
 #endif

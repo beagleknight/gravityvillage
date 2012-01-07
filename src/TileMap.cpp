@@ -116,3 +116,8 @@ float TileMap::getCoordY()
 {
   return coord_y;
 }
+
+int TileMap::getTileType(int i, int j)
+{
+  return map[rows-1-i][j];
+}

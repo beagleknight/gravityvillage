@@ -1,6 +1,8 @@
 #ifndef CLASS_SPRITE_H
 #define CLASS_SPRITE_H
 
+#define PI 3.141516
+
 #include "Texture.hpp"
 
 class Sprite
@@ -19,13 +21,14 @@ class Sprite
     float animation_counter;
     float animation_time;
     float scale;
+    float rotation;
     bool alive;
   public:
     Sprite();
     ~Sprite();
     void init(int row, int col, const char *filename);
     void render();
-    void update(float dt);
+    virtual void update(float dt);
     void setX(float _x);
     float getX();
     void setY(float _y);
@@ -46,6 +49,7 @@ class Sprite
     int getCols();
     void setAnimationTime(float _animation_time);
     void setScale(float _scale);
+    void setRotation(float _rotation);
     bool collision(Sprite *sprite);
     void setAlive(bool _alive);
     bool isAlive();
