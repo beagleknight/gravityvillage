@@ -9,6 +9,7 @@
 #include "Player.hpp"
 #include "Item.hpp"
 #include "Enemy.hpp"
+#include "Town.hpp"
 
 class Game
 {
@@ -24,6 +25,7 @@ class Game
     TileMap map;
     Player player;
     Item item;
+    Town town;
     std::vector<Enemy*> enemies;
     Game();
     ~Game();

@@ -2,6 +2,7 @@
 #define CLASS_PLAYER_H
 
 #include "Sprite.hpp"
+#include "Item.hpp"
 
 class Player : public Sprite
 {
@@ -15,10 +16,13 @@ class Player : public Sprite
     void halt();
     bool isJumping();
     void collisionMap(int type);
+    void pickItem(Item *item);
+    void releaseItem();
   private:
     int move_velocity;
     float jump_velocity;
     bool jumping;
+    Item* backpack;
 };
 
 #endif

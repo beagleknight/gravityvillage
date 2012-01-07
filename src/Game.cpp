@@ -28,7 +28,7 @@ void Game::init()
   player.setHeight(24);
   player.setAnimationTime(0.5f);
 
-  item.init(15, 6, "res/apple.png");
+  item.init(ITEM_APPLE, 15, 6, "res/apple.png");
 
   Enemy *enemy;
 
@@ -40,7 +40,6 @@ void Game::init()
   enemy->setHeight(32);
   enemy->setAnimationTime(0.5f);
   enemy->setVelX(-70);
-
   enemies.push_back(enemy);
 
   enemy = new Enemy();
@@ -51,7 +50,6 @@ void Game::init()
   enemy->setHeight(32);
   enemy->setAnimationTime(0.5f);
   enemy->setVelX(-70);
-
   enemies.push_back(enemy);
 
   enemy = new Enemy();
@@ -62,8 +60,9 @@ void Game::init()
   enemy->setHeight(32);
   enemy->setAnimationTime(0.5f);
   enemy->setVelX(-70);
-
   enemies.push_back(enemy);
+
+  town.init(3, 2, "res/town.png");
 }
 
 void Game::setCamera()
@@ -104,6 +103,7 @@ void Game::render()
   setCamera();
 
   map.render();
+  town.render();
   player.render();
   item.render();
 
@@ -123,6 +123,7 @@ void Game::update()
 
   player.update(dt);
   item.update(dt);
+  town.update(dt);
 
   for(int i = 0; i < enemies.size(); i++)
   {

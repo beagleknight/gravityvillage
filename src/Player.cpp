@@ -28,12 +28,19 @@ void Player::update(float dt)
   }
   else
   {
-    setVelY(-250*dt);
+    setVelY(-250);
   }
 
   if(collision(&game.item))
   {
     game.item.setAlive(false);
+    pickItem(&game.item);
+  }
+
+  if(collision(&game.town))
+  {
+    if(backpack != 0 && (backpack->getItemType() == game.town.itemRequested()))
+      exit(0);
   }
 
   for(int i = 0; i < game.enemies.size(); i++)
@@ -87,4 +94,14 @@ void Player::collisionMap(int type)
     halt();
   else if(type == COLLISION_Y)
     jumping = false;
+}
+
+void Player::pickItem(Item *item)
+{
+  backpack = item;
+}
+
+void Player::releaseItem()
+{
+  backpack = 0;
 }
