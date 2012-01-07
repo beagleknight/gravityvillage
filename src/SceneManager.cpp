@@ -1,4 +1,7 @@
 #include "SceneManager.hpp"
+#include "Game.hpp"
+
+extern Game game;
 
 SceneManager::SceneManager()
 {
@@ -21,9 +24,15 @@ Scene* SceneManager::getActive()
   return scenes[active];
 }
 
+int SceneManager::getActiveId()
+{
+  return active;
+}
+
 void SceneManager::setActive(int id)
 {
   active = id;
+  game.resetKeyboard();
 }
 
 void SceneManager::update(float dt)
@@ -34,4 +43,9 @@ void SceneManager::update(float dt)
 void SceneManager::render()
 {
   scenes[active]->render();
+}
+
+void SceneManager::renderGUI()
+{
+  scenes[active]->renderGUI();
 }

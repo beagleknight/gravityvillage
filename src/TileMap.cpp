@@ -24,7 +24,7 @@ TileMap::~TileMap()
 }
 
 void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w, int _tile_h, 
-    int texture_id)
+    int texture_id, const char* filename)
 {
   rows = _rows;
   cols = _cols;
@@ -54,7 +54,7 @@ void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w
   char * pch;
 
   i = j = 0;
-  ifstream myfile ("res/level0.txt");
+  ifstream myfile (filename);
   if (myfile.is_open())
   {
     while ( myfile.good() )

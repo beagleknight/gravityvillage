@@ -5,6 +5,7 @@ Game::Game()
   tm = 0;
   sm = 0;
   show_console = false;
+  gameover = false;
 }
 
 Game::~Game()
@@ -16,6 +17,9 @@ Game::~Game()
 void Game::init()
 {
   Scene *scene;
+  Level *level;
+
+  TextLabel *text_label;
   TileMap *map;
   Player *player;
   Item *item;
@@ -29,67 +33,36 @@ void Game::init()
   sm = new SceneManager();
 
   // Loading textures
-  tm->loadTexture(TEXTURE_MAP, "res/test.png");
-  tm->loadTexture(TEXTURE_PLAYER, "res/link.png");
-  tm->loadTexture(TEXTURE_ITEM_0, "res/apple.png");
-  tm->loadTexture(TEXTURE_ENEMY_0, "res/enemy.png");
-  tm->loadTexture(TEXTURE_TOWN, "res/town.png");
-  tm->loadTexture(TEXTURE_BUBBLE, "res/bubble.png");
+  tm->loadTexture(TEXTURE_MAP, "res/textures/test.png");
+  tm->loadTexture(TEXTURE_PLAYER, "res/textures/link.png");
+  tm->loadTexture(TEXTURE_ITEM_0, "res/textures/apple.png");
+  tm->loadTexture(TEXTURE_ENEMY_0, "res/textures/enemy.png");
+  tm->loadTexture(TEXTURE_TOWN, "res/textures/town.png");
+  tm->loadTexture(TEXTURE_BUBBLE, "res/textures/bubble.png");
+
+  // Loading start scene
+  scene = new Scene();
+  text_label = new TextLabel(255, 100, "Gravity Village");
+  scene->addGUIElement(text_label);
+  text_label = new TextLabel(210, 400, "- Press SPACE to start -");
+  scene->addGUIElement(text_label);
+  sm->addScene(SCENE_START, scene);
 
   // Loading game scene
-  scene = new Scene();
-  // Adding map
-  map = new TileMap();
-  map->init(25, 30, 8, 10, 32, 32, TEXTURE_MAP);
-  scene->addEntity(map);
-  // Adding town
-  town = new Town();
-  town->init(3, 2, TEXTURE_TOWN);
-  scene->addEntity(town);
-  // Adding player
-  player = new Player();
-  player->init(3, 8, TEXTURE_PLAYER);
-  player->setCols(7);
-  player->setTotalFrames(7);
-  player->setWidth(16);
-  player->setHeight(24);
-  player->setAnimationTime(0.5f);
-  scene->addEntity(player);
-  // Adding item 
-  item = new Item();
-  item->init(ITEM_APPLE, 15, 6, TEXTURE_ITEM_0);
-  scene->addEntity(item);
-  // Adding enemies
-  enemy = new Enemy();
-  enemy->init(3, 12, TEXTURE_ENEMY_0);
-  enemy->setCols(4);
-  enemy->setTotalFrames(4);
-  enemy->setWidth(32);
-  enemy->setHeight(32);
-  enemy->setAnimationTime(0.5f);
-  enemy->setVelX(-70);
-  scene->addEntity(enemy);
-  enemy = new Enemy();
-  enemy->init(12, 18, TEXTURE_ENEMY_0);
-  enemy->setCols(4);
-  enemy->setTotalFrames(4);
-  enemy->setWidth(32);
-  enemy->setHeight(32);
-  enemy->setAnimationTime(0.5f);
-  enemy->setVelX(-70);
-  scene->addEntity(enemy);
-  enemy = new Enemy();
-  enemy->init(15, 5, TEXTURE_ENEMY_0);
-  enemy->setCols(4);
-  enemy->setTotalFrames(4);
-  enemy->setWidth(32);
-  enemy->setHeight(32);
-  enemy->setAnimationTime(0.5f);
-  enemy->setVelX(-70);
-  scene->addEntity(enemy);
+  level = new Level("res/levels/level0.xml");
+  level->init();
+  sm->addScene(SCENE_GAME, level);
 
-  sm->addScene(SCENE_GAME, scene);
-  sm->setActive(SCENE_GAME);
+  // Loading end scene
+  scene = new Scene();
+  text_label = new TextLabel(255, 100, "GAME OVER");
+  scene->addGUIElement(text_label);
+  text_label = new TextLabel(220, 400, "- Press ESC to exit -");
+  scene->addGUIElement(text_label);
+  sm->addScene(SCENE_END, scene);
+
+  // Set active scene
+  sm->setActive(SCENE_START);
 }
 
 void Game::update()
@@ -99,6 +72,22 @@ void Game::update()
 
   if(keys[27])
     exit(0);
+
+  if(sm->getActiveId() == SCENE_START || sm->getActiveId() == SCENE_END)
+  {
+    if(keys[32])
+    {
+      gameover = false;
+      sm->setActive(SCENE_GAME);
+    }
+  }
+  else // game scene is active
+  {
+    if(gameover)
+    {
+      sm->setActive(SCENE_END);
+    }
+  }
   
   if(keys[186])
     show_console = true;
@@ -109,17 +98,24 @@ void Game::update()
 void Game::render()
 {
   setCamera();
-
   sm->render();
 
   startRenderGUI();
-  renderConsole();
+  sm->renderGUI();
   endRenderGUI();
 }
 
 void Game::readKeyboard(int key, bool pressed)
 {
   keys[key] = pressed;
+}
+
+void Game::resetKeyboard()
+{
+  for(int i = 0; i < 256; i++)
+  {
+    keys[i] = 0;
+  }
 }
 
 bool Game::keyPressed(int key)
@@ -140,58 +136,27 @@ void Game::setCamera()
   static float camera_x;
   static float camera_y;
   Player* player = (Player*) sm->getActive()->findEntity(ENTITY_PLAYER);
-
-  if(player->getX() >= 200 && player->getX() <= 760)
+  if(player != 0)
   {
-    camera_x = (int) player->getX();
-  }
+    if(player->getX() >= 200 && player->getX() <= 760)
+    {
+      camera_x = (int) player->getX();
+    }
 
-  if(player->getY() >= 96 && player->getY() <= 580)
-  {
-    camera_y = (int) player->getY();
-  }
+    if(player->getY() >= 96 && player->getY() <= 580)
+    {
+      camera_y = (int) player->getY();
+    }
 
-  gluLookAt(
-      camera_x, camera_y+64, 150,
-      camera_x, camera_y+64, 0,
-      0, 1, 0
-  );
-  
+    gluLookAt(
+        camera_x, camera_y+64, 150,
+        camera_x, camera_y+64, 0,
+        0, 1, 0
+    );
+  }
+    
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-}
-
-void Game::renderConsole()
-{
-  char message[100];
-
-  if(show_console)
-  {
-    glColor3f(1.0f, 1.0f, 1.0f);
-
-    sprintf(message, "FPS: %f", timer.getFPS());
-    output(0, 25, message);
-    //sprintf(message, "Player position: %g,%g", player.getX(), player.getY());
-    //output(0, 50, message);
-    //sprintf(message, "Player is jumping: %d", player.isJumping());
-    //output(0, 75, message);
-    //sprintf(message, "Tile position: %d,%d", player.getRow(), player.getCol());
-    //output(0, 100, message);
-    //sprintf(message, "Tile type: %d", map.getTileType(player.getRow(), player.getCol()));
-    //output(0, 125, message);
-  }
-}
-
-void Game::output(int x, int y, char *string)
-{
-  int len, i;
-  void *font = GLUT_BITMAP_TIMES_ROMAN_24;
-
-  glRasterPos2f(x, y);
-  len = (int) strlen(string);
-  for (i = 0; i < len; i++) {
-    glutBitmapCharacter(font, string[i]);
-  }
 }
 
 void Game::startRenderGUI()
@@ -263,4 +228,9 @@ TextureManager* Game::getTextureManager()
 SceneManager* Game::getSceneManager()
 {
   return sm;
+}
+
+void Game::setGameOver(bool _gameover)
+{
+  gameover = _gameover;
 }

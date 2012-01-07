@@ -13,17 +13,19 @@
 #include "TextureManager.hpp"
 #include "Scene.hpp"
 #include "SceneManager.hpp"
+#include "TextLabel.hpp"
+#include "Level.hpp"
 
 class Game
 {
   private:
     Timer timer;
     char keys[256];
-    void renderConsole();
     void output(int x, int y, char *string);
     int window_w;
     int window_h; 
     bool show_console;
+    bool gameover;
   public:
     TextureManager *tm;
     SceneManager *sm;
@@ -33,6 +35,7 @@ class Game
     void update();
     void render();
     void readKeyboard(int key, bool pressed);
+    void resetKeyboard();
     bool keyPressed(int key);
     void setCamera();
     void startRenderGUI();
@@ -44,6 +47,7 @@ class Game
     void drawAxis();
     TextureManager* getTextureManager();
     SceneManager* getSceneManager();
+    void setGameOver(bool _gameover);
 };
 
 #endif

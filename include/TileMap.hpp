@@ -21,7 +21,7 @@ class TileMap : public Entity
     TileMap();
     ~TileMap();
     void init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w, int _tile_h, 
-        int texture_id);
+        int texture_id, const char* filename);
     void update(float dt);
     void render();
     void setCoordX(float _coord_x);

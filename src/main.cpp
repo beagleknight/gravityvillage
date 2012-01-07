@@ -80,7 +80,7 @@ void reshape(int w, int h)
 
 void init()
 {
-  glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glAlphaFunc(GL_GREATER, 0.05f);
   glEnable(GL_ALPHA_TEST);
 

@@ -1,0 +1,27 @@
+<level>
+  <map rows="25" cols="30" tilew="32" tileh="32" src="res/levels/map.txt" />
+  <player row="3" col="8">
+    <sprite cols="7" frames="7" width="16" height="24" animationtime="0.5" />
+  </player>
+  <towns>
+    <town row="3" col="2">
+      <items>
+        <item type="0" />
+      </items>
+    </town>
+  </towns>
+  <items>
+    <item row="15" col="6" type="0" />
+  </items>
+  <enemies>
+    <enemy row="3" col="12" velx="-70">
+      <sprite cols="4" frames="4" width="32" height="32" animationtime="0.5" />
+    </enemy>
+    <enemy row="12" col="18" velx="70">
+      <sprite cols="4" frames="4" width="32" height="32" animationtime="0.5" />
+    </enemy>
+    <enemy row="15" col="5" velx="-70">
+      <sprite cols="4" frames="4" width="32" height="32" animationtime="0.5" />
+    </enemy>
+  </enemies>
+</level>

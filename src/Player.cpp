@@ -7,7 +7,7 @@ extern Game game;
 
 Player::Player()
 {
-  move_velocity = 100;
+  move_velocity = 200;
   jumping = false;
   setType(ENTITY_PLAYER);
 }
@@ -34,7 +34,7 @@ void Player::update(float dt)
   if(isJumping())
   {
     setVelY(jump_velocity);
-    jump_velocity -= 300*dt;
+    jump_velocity -= 500*dt;
   }
   else
   {
@@ -55,7 +55,7 @@ void Player::update(float dt)
   if(town != 0 && collision(town))
   {
     if(backpack != 0 && (backpack->getItemType() == town->itemRequested()))
-      exit(0);
+      game.setGameOver(true);
   }
 
   // check collision against enemies
@@ -64,12 +64,12 @@ void Player::update(float dt)
   while(it != enemies.end())
   {
     if(collision((Enemy*) (*it)))
-      exit(0);
+      game.setGameOver(true);
     it++;
   }
 
   if(getY() < 0)
-    exit(0);
+    game.setGameOver(true);
 
   Sprite::update(dt);
 }
@@ -93,7 +93,7 @@ void Player::jump()
   if(!isJumping())
   {
     jumping = true;
-    jump_velocity = 200;
+    jump_velocity = 300;
   }
 }
 
