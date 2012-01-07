@@ -1,7 +1,8 @@
 #ifndef CLASS_SPRITE_H
 #define CLASS_SPRITE_H
 
-#define PI 3.141516
+#define COLLISION_X 0
+#define COLLISION_Y 1
 
 #include "Texture.hpp"
 
@@ -53,6 +54,9 @@ class Sprite
     bool collision(Sprite *sprite);
     void setAlive(bool _alive);
     bool isAlive();
+    int getRow();
+    int getCol();
+    virtual void collisionMap(int type);
 };
 
 #endif

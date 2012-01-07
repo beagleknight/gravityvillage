@@ -14,8 +14,7 @@ class Player : public Sprite
     void jump();
     void halt();
     bool isJumping();
-    int getRow();
-    int getCol();
+    void collisionMap(int type);
   private:
     int move_velocity;
     float jump_velocity;

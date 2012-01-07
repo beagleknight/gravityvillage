@@ -64,8 +64,6 @@ void Game::render()
 {
   setCamera();
 
-  drawAxis();
-
   map.render();
   player.render();
   //item.render();

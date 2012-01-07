@@ -1,5 +1,8 @@
 #include "Sprite.hpp"
+#include "Game.hpp"
 #include <stdio.h>
+
+extern Game game;
 
 Sprite::Sprite()
 {
@@ -70,8 +73,58 @@ void Sprite::render()
 
 void Sprite::update(float dt)
 {
+  float old_x, old_y;
+
+  old_x = x;
   x += vx*dt;
+  
+  if(vx > 0)
+  {
+    if(game.map.getTileType(getRow(), getCol()) == 0) 
+    {
+      collisionMap(COLLISION_X);
+      x = old_x;
+    }
+  }
+  else
+  {
+    float tmp = x;
+    x += getWidth();
+    if(game.map.getTileType(getRow(), getCol()) == 0) 
+    {
+      collisionMap(COLLISION_X);
+      x = old_x;
+    }
+    else
+    {
+      x = tmp;
+    }
+  }
+
+  old_y = y;
   y += vy*dt;
+  if(vy < 0)
+  {
+    if(game.map.getTileType(getRow(), getCol()) == 0)
+    {
+      collisionMap(COLLISION_Y);
+      y = old_y;
+    }
+  }
+  else
+  {
+    float tmp = y;
+    y += getHeight();
+    if(game.map.getTileType(getRow(), getCol()) == 0) 
+    {
+      collisionMap(COLLISION_Y);
+      y = old_y;
+    }
+    else
+    {
+      y = tmp;
+    }
+  }
    
   if(animation_time > 0)
   {
@@ -211,4 +264,19 @@ void Sprite::setAlive(bool _alive)
 bool Sprite::isAlive()
 {
   return alive;
+}
+
+int Sprite::getRow()
+{
+  return (int) getY() / 32;
+}
+
+int Sprite::getCol()
+{
+  return (int) ((getX()+getWidth()/2) / 32);
+}
+
+void Sprite::collisionMap(int type)
+{
+
 }
