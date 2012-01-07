@@ -17,6 +17,7 @@ class Level : public Scene
     void createItem(TiXmlElement* xItem);
     void createTown(TiXmlElement* xTown);
     void createEnemy(TiXmlElement* xEnemy);
+    void createTextLabel(TiXmlElement* xTextLabel);
 };
 
 #endif

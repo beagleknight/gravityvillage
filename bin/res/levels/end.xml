@@ -1,0 +1,6 @@
+<level>
+  <gui>
+    <textlabel x="255" y="100" text="GAME OVER" />
+    <textlabel x="200" y="400" text="- Press SPACE to continue -" />
+  </gui>
+</level>

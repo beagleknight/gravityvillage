@@ -16,15 +16,7 @@ Game::~Game()
 
 void Game::init()
 {
-  Scene *scene;
   Level *level;
-
-  TextLabel *text_label;
-  TileMap *map;
-  Player *player;
-  Item *item;
-  Enemy *enemy;
-  Town *town;
 
   // Initialize timer
   timer.init();
@@ -41,12 +33,9 @@ void Game::init()
   tm->loadTexture(TEXTURE_BUBBLE, "res/textures/bubble.png");
 
   // Loading start scene
-  scene = new Scene();
-  text_label = new TextLabel(255, 100, "Gravity Village");
-  scene->addGUIElement(text_label);
-  text_label = new TextLabel(210, 400, "- Press SPACE to start -");
-  scene->addGUIElement(text_label);
-  sm->addScene(SCENE_START, scene);
+  level = new Level("res/levels/start.xml");
+  level->init();
+  sm->addScene(SCENE_START, level);
 
   // Loading game scene
   level = new Level("res/levels/level0.xml");
@@ -54,12 +43,9 @@ void Game::init()
   sm->addScene(SCENE_GAME, level);
 
   // Loading end scene
-  scene = new Scene();
-  text_label = new TextLabel(255, 100, "GAME OVER");
-  scene->addGUIElement(text_label);
-  text_label = new TextLabel(220, 400, "- Press SPACE to continue -");
-  scene->addGUIElement(text_label);
-  sm->addScene(SCENE_END, scene);
+  level = new Level("res/levels/end.xml");
+  level->init();
+  sm->addScene(SCENE_END, level);
 
   // Set active scene
   sm->setActive(SCENE_START);
@@ -90,6 +76,9 @@ void Game::update()
     }
   }
   
+  if(keys[GLUT_KEY_F1])
+    ((Level*)sm->getActive())->init();
+
   if(keys[186])
     show_console = true;
   else

@@ -65,6 +65,16 @@ void Level::init()
       createEnemy(xEnemy);
     }
   }
+
+  TiXmlElement* xGUI = xLevel->FirstChildElement("gui");
+  if(xGUI != 0)
+  {
+    for(TiXmlElement* xTextLabel = xGUI->FirstChildElement("textlabel"); xTextLabel != 0; 
+        xTextLabel = xTextLabel->NextSiblingElement("textlabel"))
+    {
+      createTextLabel(xTextLabel);
+    }
+  }
 }
 
 void Level::createTileMap(TiXmlElement* xMap)
@@ -175,5 +185,20 @@ void Level::createEnemy(TiXmlElement* xEnemy)
     enemy->setAnimationTime(animationtime);
     enemy->setVelX(velx);
     addEntity(enemy);
+  }
+}
+
+void Level::createTextLabel(TiXmlElement* xTextLabel)
+{
+  int x, y;
+  TextLabel *textlabel;
+  
+  if(xTextLabel != 0)
+  {
+    sscanf(xTextLabel->Attribute("x"), "%d", &x);   
+    sscanf(xTextLabel->Attribute("y"), "%d", &y);   
+
+    textlabel = new TextLabel(x, y, xTextLabel->Attribute("text"));
+    addGUIElement(textlabel);
   }
 }

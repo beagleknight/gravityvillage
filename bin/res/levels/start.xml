@@ -1,0 +1,6 @@
+<level>
+  <gui>
+    <textlabel x="255" y="100" text="Gravity Village" />
+    <textlabel x="210" y="400" text="- Press SPACE to start -" />
+  </gui>
+</level>
