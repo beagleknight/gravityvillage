@@ -8,7 +8,7 @@ class Enemy : public Sprite
   public:
     Enemy();
     ~Enemy();
-    void init(int row, int col, const char* filename);
+    void init(int row, int col, int texture_id);
     void update(float dt);
   private:
     int range;

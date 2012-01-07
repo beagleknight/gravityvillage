@@ -2,11 +2,13 @@
 
 Game::Game()
 {
+  tm = 0;
   show_console = false;
 }
 
 Game::~Game()
 {
+  if(tm != 0) delete tm;
   enemies.clear();
 }
 
@@ -17,23 +19,32 @@ void Game::readKeyboard(int key, bool pressed)
 
 void Game::init()
 {
+  // Loading textures
+  tm = new TextureManager();
+  tm->loadTexture(TEXTURE_MAP, "res/test.png");
+  tm->loadTexture(TEXTURE_PLAYER, "res/link.png");
+  tm->loadTexture(TEXTURE_ITEM_0, "res/apple.png");
+  tm->loadTexture(TEXTURE_ENEMY_0, "res/enemy.png");
+  tm->loadTexture(TEXTURE_TOWN, "res/town.png");
+  tm->loadTexture(TEXTURE_BUBBLE, "res/bubble.png");
+
   timer.init();
 
-  map.init(25, 30, 8, 10, 32, 32, "res/test.png");
+  map.init(25, 30, 8, 10, 32, 32, TEXTURE_MAP);
 
-  player.init(3, 8, "res/link.png");
+  player.init(3, 8, TEXTURE_PLAYER);
   player.setCols(7);
   player.setTotalFrames(7);
   player.setWidth(16);
   player.setHeight(24);
   player.setAnimationTime(0.5f);
 
-  item.init(ITEM_APPLE, 15, 6, "res/apple.png");
+  item.init(ITEM_APPLE, 15, 6, TEXTURE_ITEM_0);
 
   Enemy *enemy;
 
   enemy = new Enemy();
-  enemy->init(3, 12, "res/enemy.png");
+  enemy->init(3, 12, TEXTURE_ENEMY_0);
   enemy->setCols(4);
   enemy->setTotalFrames(4);
   enemy->setWidth(32);
@@ -43,7 +54,7 @@ void Game::init()
   enemies.push_back(enemy);
 
   enemy = new Enemy();
-  enemy->init(12, 18, "res/enemy.png");
+  enemy->init(12, 18, TEXTURE_ENEMY_0);
   enemy->setCols(4);
   enemy->setTotalFrames(4);
   enemy->setWidth(32);
@@ -53,7 +64,7 @@ void Game::init()
   enemies.push_back(enemy);
 
   enemy = new Enemy();
-  enemy->init(15, 5, "res/enemy.png");
+  enemy->init(15, 5, TEXTURE_ENEMY_0);
   enemy->setCols(4);
   enemy->setTotalFrames(4);
   enemy->setWidth(32);
@@ -62,7 +73,7 @@ void Game::init()
   enemy->setVelX(-70);
   enemies.push_back(enemy);
 
-  town.init(3, 2, "res/town.png");
+  town.init(3, 2, TEXTURE_TOWN);
 }
 
 void Game::setCamera()
@@ -241,4 +252,9 @@ void Game::drawAxis()
     glVertex3f(0, 0, 0);
     glVertex3f(0, 100, 0);
   glEnd();
+}
+
+TextureManager* Game::getTextureManager()
+{
+  return tm;
 }

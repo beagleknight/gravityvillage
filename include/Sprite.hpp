@@ -27,7 +27,7 @@ class Sprite
   public:
     Sprite();
     ~Sprite();
-    virtual void init(int row, int col, const char *filename);
+    virtual void init(int row, int col, int texture_id);
     virtual void render();
     virtual void update(float dt);
     void setX(float _x);

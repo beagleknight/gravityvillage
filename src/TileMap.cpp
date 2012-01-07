@@ -23,7 +23,7 @@ TileMap::~TileMap()
 }
 
 void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w, int _tile_h, 
-    const char *filename)
+    int texture_id)
 {
   rows = _rows;
   cols = _cols;
@@ -36,7 +36,7 @@ void TileMap::init(int _rows, int _cols, int _scene_w, int _scene_h, int _tile_w
   coord_y = 0;
 
   sprite = new Sprite();
-  sprite->init(0, 0, filename);
+  sprite->init(0, 0, texture_id);
   sprite->setWidth(tile_w);
   sprite->setHeight(tile_h);
   sprite->setTotalFrames(5);

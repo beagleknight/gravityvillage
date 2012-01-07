@@ -1,4 +1,5 @@
 #include "Town.hpp"
+#include "TextureManager.hpp"
 
 Town::Town()
 {
@@ -12,13 +13,13 @@ Town::~Town()
   if(item != 0) delete item;
 }
 
-void Town::init(int row, int col, const char* filename)
+void Town::init(int row, int col, int texture_id)
 {
-  Sprite::init(row, col, filename);
+  Sprite::init(row, col, texture_id);
   bubble = new Sprite();
-  bubble->init(row+2, col+3, "res/bubble.png");
+  bubble->init(row+2, col+3, TEXTURE_BUBBLE);
   item = new Item();
-  item->init(ITEM_APPLE, row+2, col+3, "res/apple.png");
+  item->init(ITEM_APPLE, row+2, col+3, TEXTURE_ITEM_0);
   item->setX(item->getX()+15);
   item->setY(item->getY()+20);
 }

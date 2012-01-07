@@ -10,9 +10,9 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::init(int row, int col, const char* filename)
+void Enemy::init(int row, int col, int texture_id)
 {
-  Sprite::init(row, col, filename);
+  Sprite::init(row, col, texture_id);
   init_row = row;
   init_col = col;
 }

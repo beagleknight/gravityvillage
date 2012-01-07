@@ -9,7 +9,7 @@ class Town : public Sprite
   public:
     Town();
     ~Town();
-    void init(int row, int col, const char* filename);
+    void init(int row, int col, int texture_id);
     void render();
     int itemRequested();
   private:

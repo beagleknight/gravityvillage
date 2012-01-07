@@ -11,7 +11,7 @@ class Item : public Sprite
   public:
     Item();
     ~Item();
-    void init(int _item_type, int row, int col, const char* filename);
+    void init(int _item_type, int row, int col, int texture_id);
     int getItemType();
   private:
     int item_type;

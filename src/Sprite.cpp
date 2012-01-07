@@ -20,20 +20,15 @@ Sprite::Sprite()
 
 Sprite::~Sprite()
 {
-  if(texture != 0) delete texture;
+
 }
 
-void Sprite::init(int row, int col, const char *filename)
+void Sprite::init(int row, int col, int texture_id)
 {
   x = col*32;
   y = row*32;
 
-  texture = new Texture();
-  if(!texture->load(filename))
-  {
-    printf("Error loading: texture '%s'\n", filename);
-    exit(0);
-  }
+  texture = game.getTextureManager()->getTexture(texture_id);
   w = texture->getWidth();
   h = texture->getHeight();
 }

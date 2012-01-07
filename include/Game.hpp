@@ -10,6 +10,7 @@
 #include "Item.hpp"
 #include "Enemy.hpp"
 #include "Town.hpp"
+#include "TextureManager.hpp"
 
 class Game
 {
@@ -26,6 +27,7 @@ class Game
     Player player;
     Item item;
     Town town;
+    TextureManager *tm;
     std::vector<Enemy*> enemies;
     Game();
     ~Game();
@@ -41,6 +43,7 @@ class Game
     void setWindowHeight(int _window_h);
     int getWindowHeight();
     void drawAxis();
+    TextureManager* getTextureManager();
 };
 
 #endif
