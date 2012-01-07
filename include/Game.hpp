@@ -12,6 +12,7 @@
 #include "Town.hpp"
 #include "TextureManager.hpp"
 #include "Scene.hpp"
+#include "SceneManager.hpp"
 
 class Game
 {
@@ -24,8 +25,8 @@ class Game
     int window_h; 
     bool show_console;
   public:
-    Scene *scene;
     TextureManager *tm;
+    SceneManager *sm;
     Game();
     ~Game();
     void init();
@@ -42,7 +43,7 @@ class Game
     int getWindowHeight();
     void drawAxis();
     TextureManager* getTextureManager();
-    Scene* getScene();
+    SceneManager* getSceneManager();
 };
 
 #endif

@@ -73,7 +73,7 @@ void Sprite::update(float dt)
   old_x = x;
   x += vx*dt;
   
-  TileMap* map = (TileMap*) game.getScene()->findEntity(ENTITY_MAP);
+  TileMap* map = (TileMap*) game.getSceneManager()->getActive()->findEntity(ENTITY_MAP);
   if(vx > 0)
   {
     if(map->getTileType(getRow(), getCol()) == 0) 

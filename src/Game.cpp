@@ -2,19 +2,20 @@
 
 Game::Game()
 {
-  scene = 0;
   tm = 0;
+  sm = 0;
   show_console = false;
 }
 
 Game::~Game()
 {
-  if(scene != 0) delete scene;
   if(tm != 0) delete tm;
+  if(sm != 0) delete sm;
 }
 
 void Game::init()
 {
+  Scene *scene;
   TileMap *map;
   Player *player;
   Item *item;
@@ -23,9 +24,11 @@ void Game::init()
 
   // Initialize timer
   timer.init();
+  // Initializing managers
+  tm = new TextureManager();
+  sm = new SceneManager();
 
   // Loading textures
-  tm = new TextureManager();
   tm->loadTexture(TEXTURE_MAP, "res/test.png");
   tm->loadTexture(TEXTURE_PLAYER, "res/link.png");
   tm->loadTexture(TEXTURE_ITEM_0, "res/apple.png");
@@ -84,12 +87,15 @@ void Game::init()
   enemy->setAnimationTime(0.5f);
   enemy->setVelX(-70);
   scene->addEntity(enemy);
+
+  sm->addScene(SCENE_GAME, scene);
+  sm->setActive(SCENE_GAME);
 }
 
 void Game::update()
 {
   float dt = timer.tick();
-  scene->update(dt);
+  sm->update(dt);
 
   if(keys[27])
     exit(0);
@@ -104,7 +110,7 @@ void Game::render()
 {
   setCamera();
 
-  scene->render();
+  sm->render();
 
   startRenderGUI();
   renderConsole();
@@ -133,7 +139,7 @@ void Game::setCamera()
 
   static float camera_x;
   static float camera_y;
-  Player* player = (Player*) scene->findEntity(ENTITY_PLAYER);
+  Player* player = (Player*) sm->getActive()->findEntity(ENTITY_PLAYER);
 
   if(player->getX() >= 200 && player->getX() <= 760)
   {
@@ -254,7 +260,7 @@ TextureManager* Game::getTextureManager()
   return tm;
 }
 
-Scene* Game::getScene()
+SceneManager* Game::getSceneManager()
 {
-  return scene;
+  return sm;
 }

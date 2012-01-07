@@ -41,15 +41,17 @@ void Player::update(float dt)
     setVelY(-250);
   }
 
+  Scene *scene;
+  scene = game.getSceneManager()->getActive();
   // check collisions against items
-  Item *item = (Item*) game.getScene()->findEntity(ENTITY_ITEM);
+  Item *item = (Item*) scene->findEntity(ENTITY_ITEM);
   if(item != 0 && collision(item))
   {
     pickItem(item);
   }
 
   // check collision against town
-  Town *town = (Town*) game.getScene()->findEntity(ENTITY_TOWN);
+  Town *town = (Town*) scene->findEntity(ENTITY_TOWN);
   if(town != 0 && collision(town))
   {
     if(backpack != 0 && (backpack->getItemType() == town->itemRequested()))
@@ -57,7 +59,7 @@ void Player::update(float dt)
   }
 
   // check collision against enemies
-  std::vector<Entity*> enemies = game.getScene()->findAllEntities(ENTITY_ENEMY);
+  std::vector<Entity*> enemies = scene->findAllEntities(ENTITY_ENEMY);
   std::vector<Entity*>::iterator it = enemies.begin();
   while(it != enemies.end())
   {
