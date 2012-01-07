@@ -27,8 +27,8 @@ class Sprite
   public:
     Sprite();
     ~Sprite();
-    void init(int row, int col, const char *filename);
-    void render();
+    virtual void init(int row, int col, const char *filename);
+    virtual void render();
     virtual void update(float dt);
     void setX(float _x);
     float getX();

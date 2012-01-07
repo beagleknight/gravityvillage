@@ -28,16 +28,16 @@ void Game::init()
   player.setHeight(24);
   player.setAnimationTime(0.5f);
 
-  //item.init(15, 6, "res/apple.png");
-  //item.setScale(0.5f);
+  item.init(15, 6, "res/apple.png");
+  item.setScale(0.5f);
 
-  //enemy.init(3, 15, "res/enemy.png");
-  //enemy.setCols(4);
-  //enemy.setTotalFrames(4);
-  //enemy.setWidth(32);
-  //enemy.setHeight(32);
-  //enemy.setAnimationTime(0.5f);
-  //enemy.setVelX(-70);
+  enemy.init(3, 12, "res/enemy.png");
+  enemy.setCols(4);
+  enemy.setTotalFrames(4);
+  enemy.setWidth(32);
+  enemy.setHeight(32);
+  enemy.setAnimationTime(0.5f);
+  enemy.setVelX(-70);
 }
 
 void Game::setCamera()
@@ -66,8 +66,8 @@ void Game::render()
 
   map.render();
   player.render();
-  //item.render();
-  //enemy.render();
+  item.render();
+  enemy.render();
 
   startRenderGUI();
   renderConsole();
@@ -79,18 +79,8 @@ void Game::update()
   float dt = timer.tick();
 
   player.update(dt);
-  //item.update(dt);
-  //enemy.update(dt);
-
-  //if(player.collision(&item))
-  //{
-  //  item.setAlive(false);
-  //}
-
-  //if(player.collision(&enemy))
-  //{
-  //  exit(0);
-  //}
+  item.update(dt);
+  enemy.update(dt);
 
   if(keys[27])
     exit(0);
@@ -122,6 +112,8 @@ void Game::renderConsole()
   output(0, 100, message);
   sprintf(message, "Tile type: %d", map.getTileType(player.getRow(), player.getCol()));
   output(0, 125, message);
+  sprintf(message, "Enemy position: %g, %g", enemy.getX(), enemy.getY());
+  output(0, 150, message);
 }
 
 void Game::output(int x, int y, char *string)

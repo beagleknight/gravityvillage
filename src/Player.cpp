@@ -1,6 +1,9 @@
 #include "Player.hpp"
+#include "Game.hpp"
 #include <stdio.h>
 #include <math.h>
+
+extern Game game;
 
 Player::Player()
 {
@@ -24,6 +27,17 @@ void Player::update(float dt)
   {
     setVelY(-250);
   }
+
+  if(collision(&game.item))
+  {
+    game.item.setAlive(false);
+  }
+
+  if(collision(&game.enemy))
+  {
+    exit(0);
+  }
+
   Sprite::update(dt);
 }
 
