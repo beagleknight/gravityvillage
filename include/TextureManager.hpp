@@ -12,6 +12,7 @@
 #define TEXTURE_BUBBLE 5
 #define TEXTURE_COIN 6
 #define TEXTURE_TURTLE 7
+#define TEXTURE_ORANGE 8
 
 class TextureManager
 {

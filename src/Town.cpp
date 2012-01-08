@@ -7,6 +7,9 @@ Town::Town()
 {
   bubble = 0;
   setType(ENTITY_TOWN);
+  items = std::vector<Item*> (100);
+  item_counter = 0;
+  next_item = 0;
 }
 
 Town::~Town()
@@ -26,22 +29,21 @@ void Town::init(int row, int col, int texture_id, int _time)
 
 void Town::addItem(Item* item)
 {
-  items.push_back(item);
-  if(items.size() == 1)
-    it = items.begin();
+  items[item_counter] = item;
+  item_counter++;
 }
 
 bool Town::nextItem()
 {
-  it++;
-  return it != items.end();
+  next_item++;
+  return next_item < item_counter;
 }
 
 void Town::render()
 {
   Sprite::render();
   bubble->render();
-  (*it)->render();
+  items[next_item]->render();
 }
 
 void Town::update(float dt)
@@ -66,7 +68,7 @@ void Town::update(float dt)
 
 int Town::itemRequested()
 {
-  return (*it)->getItemType();
+  return items[next_item]->getItemType();
 }
 
 float Town::getTimeRemaining()

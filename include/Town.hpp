@@ -20,9 +20,10 @@ class Town : public Sprite
   private:
     Sprite *bubble;
     std::vector<Item*> items;
-    std::vector<Item*>::iterator it;
+    int item_counter;
+    int next_item;
     int time;
-    float counter;
+    int counter;
 };
 
 #endif

@@ -83,8 +83,17 @@ void Player::update(float dt)
   {
     if(backpack != 0 && (backpack->getItemType() == town->itemRequested()))
     {
-      game.setVictory(true);
-      game.getSoundManager()->playMusic(SOUND_MARIO_WIN);
+      backpack = 0;
+      bool next_item = town->nextItem();
+      if(!next_item)
+      {
+        game.setVictory(true);
+        game.getSoundManager()->playMusic(SOUND_MARIO_WIN);
+      }
+      else
+      {
+        game.getSoundManager()->playFX(SOUND_MORE_ITEMS);
+      }
     }
   }
 

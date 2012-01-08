@@ -39,6 +39,7 @@ void Game::init(int argc, char** argv)
   tm->loadTexture(TEXTURE_BUBBLE, "res/textures/bubble.png");
   tm->loadTexture(TEXTURE_COIN, "res/textures/coin.png");
   tm->loadTexture(TEXTURE_TURTLE, "res/textures/turtle.png");
+  tm->loadTexture(TEXTURE_ORANGE, "res/textures/orange.png");
 
   // Loading sounds
   sdm->addSound(SOUND_MARIO_OST, "res/sounds/mario.wav");
@@ -48,6 +49,7 @@ void Game::init(int argc, char** argv)
   sdm->addSound(SOUND_HURT, "res/sounds/hurt.wav");
   sdm->addSound(SOUND_MARIO_WIN, "res/sounds/win.wav");
   sdm->addSound(SOUND_HIT_ENEMY, "res/sounds/hit_enemy.wav");
+  sdm->addSound(SOUND_MORE_ITEMS, "res/sounds/more_items.wav");
 
   // Loading start scene
   sm->addScene(SCENE_START, new Level("res/levels/start.xml"));

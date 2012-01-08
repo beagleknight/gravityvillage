@@ -143,6 +143,9 @@ void Level::createItem(TiXmlElement* xItem)
       case ITEM_APPLE:
         texture = TEXTURE_ITEM_0;
         break;
+      case ITEM_ORANGE:
+        texture = TEXTURE_ORANGE;
+        break;
       case ITEM_COIN:
         texture = TEXTURE_COIN;
         break;
@@ -178,6 +181,9 @@ void Level::createTown(TiXmlElement* xTown)
       {
         case ITEM_APPLE:
           texture = TEXTURE_ITEM_0;
+          break;
+        case ITEM_ORANGE:
+          texture = TEXTURE_ORANGE;
           break;
         case ITEM_COIN:
           texture = TEXTURE_COIN;
