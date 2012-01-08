@@ -10,6 +10,7 @@ Player::Player()
   move_velocity = 200;
   jumping = false;
   setType(ENTITY_PLAYER);
+  backpack = 0;
 }
 
 Player::~Player()

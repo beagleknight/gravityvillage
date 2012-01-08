@@ -33,9 +33,6 @@ void Level::init()
   TiXmlElement* xMap = xLevel->FirstChildElement("map");
   createTileMap(xMap);
 
-  TiXmlElement* xPlayer = xLevel->FirstChildElement("player");
-  createPlayer(xPlayer);
-
   TiXmlElement* xTowns = xLevel->FirstChildElement("towns");
   if(xTowns != 0)
   {
@@ -45,6 +42,9 @@ void Level::init()
       createTown(xTown);
     }
   }
+
+  TiXmlElement* xPlayer = xLevel->FirstChildElement("player");
+  createPlayer(xPlayer);
 
   TiXmlElement* xItems = xLevel->FirstChildElement("items");
   if(xItems != 0)
