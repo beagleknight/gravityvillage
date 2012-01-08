@@ -2,7 +2,8 @@
 
 SoundManager::SoundManager()
 {
-
+  buffers = vector<ALuint> (100);
+  sources = vector<ALuint> (100);
 }
 
 SoundManager::~SoundManager()
@@ -15,6 +16,16 @@ void SoundManager::init(int argc, char** argv)
   alutInit (&argc, argv);
 }
 
+void SoundManager::addSound(int id, const char* filename)
+{
+  ALuint buffer, source;
+  buffer = alutCreateBufferFromFile(filename);
+  alGenSources (1, &source);
+
+  buffers[id] = buffer;
+  sources[id] = source;
+}
+
 void SoundManager::playHelloWorld()
 {
   ALuint helloBuffer, helloSource;
@@ -25,21 +36,14 @@ void SoundManager::playHelloWorld()
   alutSleep (1);
 }
 
-void SoundManager::playMusic()
+void SoundManager::playMusic(int id)
 {
-  ALuint buffer, source;
-  buffer = alutCreateBufferFromFile("res/sounds/mario.wav");
-  alGenSources (1, &source);
-  alSourcei (source, AL_BUFFER, buffer);
-  alSourcePlay (source);
-  alutSleep (1);
+  alSourcei (sources[id], AL_BUFFER, buffers[id]);
+  alSourcePlay (sources[id]);
 }
 
-void SoundManager::playFX()
+void SoundManager::playFX(int id)
 {
-  ALuint buffer, source;
-  buffer = alutCreateBufferFromFile("res/sounds/jump.wav");
-  alGenSources (1, &source);
-  alSourcei (source, AL_BUFFER, buffer);
-  alSourcePlay (source);
+  alSourcei (sources[id], AL_BUFFER, buffers[id]);
+  alSourcePlay (sources[id]);
 }

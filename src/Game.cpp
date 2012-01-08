@@ -28,7 +28,6 @@ void Game::init(int argc, char** argv)
   timer.init();
   // Initializing Sound Manager
   sdm->init(argc, argv);
-  sdm->playMusic();
 
   // Loading textures
   tm->loadTexture(TEXTURE_MAP, "res/textures/test.png");
@@ -37,6 +36,10 @@ void Game::init(int argc, char** argv)
   tm->loadTexture(TEXTURE_ENEMY_0, "res/textures/enemy.png");
   tm->loadTexture(TEXTURE_TOWN, "res/textures/town.png");
   tm->loadTexture(TEXTURE_BUBBLE, "res/textures/bubble.png");
+
+  // Loading sounds
+  sdm->addSound(SOUND_MARIO_OST, "res/sounds/mario.wav");
+  sdm->addSound(SOUND_JUMP, "res/sounds/jump.wav");
 
   // Loading start scene
   sm->addScene(SCENE_START, new Level("res/levels/start.xml"));
@@ -66,6 +69,7 @@ void Game::update()
       gameover = false;
       player_lives = 2;
       sm->setActive(SCENE_GAME);
+      sdm->playMusic(SOUND_MARIO_OST);
       ((Level*) sm->getActive())->init();
       ((Player*)((Level*) sm->getActive())->findEntity(ENTITY_PLAYER))->setLives(player_lives);
     }
