@@ -15,6 +15,7 @@
 #include "SceneManager.hpp"
 #include "TextLabel.hpp"
 #include "Level.hpp"
+#include "SoundManager.hpp"
 
 class Game
 {
@@ -30,9 +31,10 @@ class Game
   public:
     TextureManager *tm;
     SceneManager *sm;
+    SoundManager *sdm;
     Game();
     ~Game();
-    void init();
+    void init(int argc, char** argv);
     void update();
     void render();
     void readKeyboard(int key, bool pressed);
@@ -48,6 +50,7 @@ class Game
     void drawAxis();
     TextureManager* getTextureManager();
     SceneManager* getSceneManager();
+    SoundManager* getSoundManager();
     void setGameOver(bool _gameover);
 };
 

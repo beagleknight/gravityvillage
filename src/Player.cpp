@@ -110,6 +110,7 @@ void Player::jump()
   {
     jumping = true;
     jump_velocity = 300;
+    game.getSoundManager()->playFX();
   }
 }
 

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <GL/glut.h>
 #include "Game.hpp"
 
@@ -6,7 +7,7 @@ void readUpKeyboard(unsigned char key, int x, int y);
 void readSpecialKeyboard(int key, int x, int y);
 void readSpecialUpKeyboard(int key, int x, int y);
 void reshape(int w, int h);
-void init();
+void init(int argc, char** argv);
 void update();
 void render();
 
@@ -43,7 +44,7 @@ int main(int argc, char** argv)
   glutDisplayFunc(render);
   glutIdleFunc(update);
 
-  init();
+  init(argc, argv);
 
   glutMainLoop();
 }
@@ -78,13 +79,13 @@ void reshape(int w, int h)
   game.setWindowHeight(h);
 }
 
-void init()
+void init(int argc, char** argv)
 {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glAlphaFunc(GL_GREATER, 0.05f);
   glEnable(GL_ALPHA_TEST);
 
-  game.init();
+  game.init(argc, argv);
 }
 
 void update()

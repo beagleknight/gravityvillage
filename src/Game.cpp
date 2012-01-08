@@ -4,6 +4,7 @@ Game::Game()
 {
   tm = 0;
   sm = 0;
+  sdm = 0;
   show_console = false;
   gameover = false;
   player_lives = 2;
@@ -13,15 +14,21 @@ Game::~Game()
 {
   if(tm != 0) delete tm;
   if(sm != 0) delete sm;
+  if(sdm != 0) delete sdm;
 }
 
-void Game::init()
+void Game::init(int argc, char** argv)
 {
-  // Initialize timer
-  timer.init();
-  // Initializing managers
+  // Creating managers
   tm = new TextureManager();
   sm = new SceneManager();
+  sdm = new SoundManager();
+
+  // Initialize timer
+  timer.init();
+  // Initializing Sound Manager
+  sdm->init(argc, argv);
+  sdm->playMusic();
 
   // Loading textures
   tm->loadTexture(TEXTURE_MAP, "res/textures/test.png");
@@ -224,6 +231,11 @@ TextureManager* Game::getTextureManager()
 SceneManager* Game::getSceneManager()
 {
   return sm;
+}
+
+SoundManager* Game::getSoundManager()
+{
+  return sdm;
 }
 
 void Game::setGameOver(bool _gameover)
