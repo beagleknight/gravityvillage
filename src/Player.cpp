@@ -95,8 +95,19 @@ void Player::update(float dt)
   {
     if(collision((Enemy*) (*it)))
     {
-      game.setGameOver(true);
-      game.getSoundManager()->playFX(SOUND_HURT);
+      if(getY() > ((Enemy*)(*it))->getY())
+      {
+        ((Enemy*)(*it))->setAlive(false);
+        game.getSoundManager()->playFX(SOUND_HIT_ENEMY);
+        jumping = false;
+        jump();
+        score += 10;
+      }
+      else
+      {
+        game.setGameOver(true);
+        game.getSoundManager()->playFX(SOUND_HURT);
+      }
       break;
     }
     it++;

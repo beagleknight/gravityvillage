@@ -11,6 +11,7 @@ using namespace std;
 #define SOUND_PICK_QUEST 3
 #define SOUND_HURT 4
 #define SOUND_MARIO_WIN 5
+#define SOUND_HIT_ENEMY 6
 
 class SoundManager
 {
