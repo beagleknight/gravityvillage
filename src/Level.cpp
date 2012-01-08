@@ -143,16 +143,30 @@ void Level::createItem(TiXmlElement* xItem)
 
 void Level::createTown(TiXmlElement* xTown)
 {
-  int row, col;
+  int row, col, time, type;
   Town* town;
+  Item *item;
 
   if(xTown != 0)
   {
     sscanf(xTown->Attribute("row"), "%d", &row);
     sscanf(xTown->Attribute("col"), "%d", &col);
+    sscanf(xTown->Attribute("time"), "%d", &time);
 
     town = new Town();
-    town->init(row, col, TEXTURE_TOWN);
+    town->init(row, col, TEXTURE_TOWN, time);
+
+    TiXmlElement* xItems = xTown->FirstChildElement("items");
+    for(TiXmlElement* xItem = xItems->FirstChildElement("item"); xItem != 0; 
+      xItem = xItem->NextSiblingElement("item"))
+    {
+      item = new Item();
+      sscanf(xItem->Attribute("type"), "%d", &type); 
+      item->init(type, row+2, col+3, TEXTURE_ITEM_0);
+      item->setX(item->getX()+15);
+      item->setY(item->getY()+20);
+      town->addItem(item);
+    }
     addEntity(town);
   }
 }

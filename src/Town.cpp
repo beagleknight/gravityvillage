@@ -1,38 +1,62 @@
 #include "Town.hpp"
-#include "TextureManager.hpp"
+#include "Game.hpp"
+
+extern Game game;
 
 Town::Town()
 {
   bubble = 0;
-  item = 0;
   setType(ENTITY_TOWN);
 }
 
 Town::~Town()
 {
   if(bubble != 0) delete bubble;
-  if(item != 0) delete item;
+  items.clear();
 }
 
-void Town::init(int row, int col, int texture_id)
+void Town::init(int row, int col, int texture_id, int _time)
 {
   Sprite::init(row, col, texture_id);
   bubble = new Sprite();
   bubble->init(row+2, col+3, TEXTURE_BUBBLE);
-  item = new Item();
-  item->init(ITEM_APPLE, row+2, col+3, TEXTURE_ITEM_0);
-  item->setX(item->getX()+15);
-  item->setY(item->getY()+20);
+  time = _time;
+  counter = 0;
+}
+
+void Town::addItem(Item* item)
+{
+  items.push_back(item);
+  if(items.size() == 1)
+    it = items.begin();
+}
+
+bool Town::nextItem()
+{
+  it++;
+  return it != items.end();
 }
 
 void Town::render()
 {
   Sprite::render();
   bubble->render();
-  item->render();
+  (*it)->render();
+}
+
+void Town::update(float dt)
+{
+  counter += dt;
+  if(counter >= time)
+    game.setGameOver(true);
 }
 
 int Town::itemRequested()
 {
-  return item->getItemType();
+  return (*it)->getItemType();
+}
+
+float Town::getTimeRemaining()
+{
+  return (float) time - counter;
 }

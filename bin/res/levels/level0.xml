@@ -4,7 +4,7 @@
     <sprite cols="7" frames="7" width="16" height="24" animationtime="0.5" />
   </player>
   <towns>
-    <town row="3" col="2">
+    <town row="3" col="2" time="60">
       <items>
         <item type="0" />
       </items>
@@ -24,4 +24,8 @@
       <sprite cols="4" frames="4" width="32" height="32" animationtime="0.5" />
     </enemy>
   </enemies>
+  <gui>
+    <textlabel x="20" y="30" text="Time: 60" />
+    <textlabel x="550" y="30" text="Lives: 3" />
+  </gui>
 </level>
