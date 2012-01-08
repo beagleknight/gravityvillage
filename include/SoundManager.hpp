@@ -9,6 +9,8 @@ using namespace std;
 #define SOUND_JUMP 1
 #define SOUND_PICK_ITEM 2
 #define SOUND_PICK_QUEST 3
+#define SOUND_HURT 4
+#define SOUND_MARIO_WIN 5
 
 class SoundManager
 {

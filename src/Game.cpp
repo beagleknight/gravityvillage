@@ -45,6 +45,8 @@ void Game::init(int argc, char** argv)
   sdm->addSound(SOUND_JUMP, "res/sounds/jump.wav");
   sdm->addSound(SOUND_PICK_ITEM, "res/sounds/pick_item.wav");
   sdm->addSound(SOUND_PICK_QUEST, "res/sounds/pick_quest.wav");
+  sdm->addSound(SOUND_HURT, "res/sounds/hurt.wav");
+  sdm->addSound(SOUND_MARIO_WIN, "res/sounds/win.wav");
 
   // Loading start scene
   sm->addScene(SCENE_START, new Level("res/levels/start.xml"));

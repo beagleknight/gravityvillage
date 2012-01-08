@@ -72,7 +72,7 @@ void Player::update(float dt)
           game.getSoundManager()->playFX(SOUND_PICK_ITEM);
           break;
       }
-
+      break;
     }
     it++;
   }
@@ -82,7 +82,10 @@ void Player::update(float dt)
   if(town != 0 && collision(town))
   {
     if(backpack != 0 && (backpack->getItemType() == town->itemRequested()))
+    {
       game.setVictory(true);
+      game.getSoundManager()->playMusic(SOUND_MARIO_WIN);
+    }
   }
 
   // check collision against enemies
@@ -91,13 +94,20 @@ void Player::update(float dt)
   while(it != entities.end())
   {
     if(collision((Enemy*) (*it)))
+    {
       game.setGameOver(true);
+      game.getSoundManager()->playFX(SOUND_HURT);
+      break;
+    }
     it++;
   }
 
   // check if we died on a pit
   if(getY() < 0)
+  {
     game.setGameOver(true);
+    game.getSoundManager()->playFX(SOUND_HURT);
+  }
 
   TextLabel *label;
   // update lives counter
