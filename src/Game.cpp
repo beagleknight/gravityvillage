@@ -6,6 +6,7 @@ Game::Game()
   sm = 0;
   show_console = false;
   gameover = false;
+  player_lives = 2;
 }
 
 Game::~Game()
@@ -64,15 +65,28 @@ void Game::update()
     if(keys[32])
     {
       gameover = false;
+      player_lives = 3;
       sm->setActive(SCENE_GAME);
       ((Level*) sm->getActive())->init();
+      ((Player*)((Level*) sm->getActive())->findEntity(ENTITY_PLAYER))->setLives(player_lives);
     }
   }
   else // game scene is active
   {
     if(gameover)
     {
-      sm->setActive(SCENE_END);
+      player_lives--;
+      if(player_lives < 0)
+      {
+        sm->setActive(SCENE_END);
+      }
+      else
+      {
+        gameover = false;
+        ((Level*) sm->getActive())->init();
+        ((Player*)((Level*) sm->getActive())->findEntity(ENTITY_PLAYER))->setLives(player_lives);
+        sm->setActive(SCENE_GAME);
+      }
     }
   }
   

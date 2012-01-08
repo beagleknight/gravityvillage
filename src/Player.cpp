@@ -11,6 +11,7 @@ Player::Player()
   jumping = false;
   setType(ENTITY_PLAYER);
   backpack = 0;
+  lives = 2;
 }
 
 Player::~Player()
@@ -20,6 +21,9 @@ Player::~Player()
 
 void Player::update(float dt)
 {
+  char lives_str[10];
+  string text;
+
   // control logic
   if(game.keyPressed(GLUT_KEY_LEFT))
     move_left();
@@ -69,8 +73,19 @@ void Player::update(float dt)
     it++;
   }
 
+  // check if we died on a pit
   if(getY() < 0)
     game.setGameOver(true);
+
+  // update lives counter
+  TextLabel *label = (TextLabel*) scene->findEntity("lives");
+  if(label != 0)
+  {
+    sprintf(lives_str, "%d", lives);
+    text = "Lives: ";
+    text += lives_str;
+    label->setText(text); 
+  }
 
   Sprite::update(dt);
 }
@@ -127,4 +142,9 @@ void Player::pickItem(Item *item)
 void Player::releaseItem()
 {
   backpack = 0;
+}
+
+void Player::setLives(int _lives)
+{
+  lives = _lives;
 }

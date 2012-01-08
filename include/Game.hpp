@@ -26,6 +26,7 @@ class Game
     int window_h; 
     bool show_console;
     bool gameover;
+    int player_lives;
   public:
     TextureManager *tm;
     SceneManager *sm;

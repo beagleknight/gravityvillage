@@ -18,11 +18,13 @@ class Player : public Sprite
     void collisionMap(int type);
     void pickItem(Item *item);
     void releaseItem();
+    void setLives(int _lives);
   private:
     int move_velocity;
     float jump_velocity;
     bool jumping;
     Item* backpack;
+    int lives;
 };
 
 #endif
