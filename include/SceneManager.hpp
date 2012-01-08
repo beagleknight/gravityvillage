@@ -7,6 +7,7 @@
 #define SCENE_GAME 0
 #define SCENE_START 1
 #define SCENE_END 2
+#define SCENE_VICTORY 3
 
 class SceneManager
 {

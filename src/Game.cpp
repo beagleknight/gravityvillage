@@ -17,8 +17,6 @@ Game::~Game()
 
 void Game::init()
 {
-  Level *level;
-
   // Initialize timer
   timer.init();
   // Initializing managers
@@ -34,19 +32,13 @@ void Game::init()
   tm->loadTexture(TEXTURE_BUBBLE, "res/textures/bubble.png");
 
   // Loading start scene
-  level = new Level("res/levels/start.xml");
-  level->init();
-  sm->addScene(SCENE_START, level);
-
+  sm->addScene(SCENE_START, new Level("res/levels/start.xml"));
   // Loading game scene
-  level = new Level("res/levels/level0.xml");
-  level->init();
-  sm->addScene(SCENE_GAME, level);
-
+  sm->addScene(SCENE_GAME, new Level("res/levels/level0.xml"));
   // Loading end scene
-  level = new Level("res/levels/end.xml");
-  level->init();
-  sm->addScene(SCENE_END, level);
+  sm->addScene(SCENE_END, new Level("res/levels/end.xml"));
+  // Loading victory scene
+  sm->addScene(SCENE_VICTORY, new Level("res/levels/victory.xml"));
 
   // Set active scene
   sm->setActive(SCENE_START);
@@ -65,7 +57,7 @@ void Game::update()
     if(keys[32])
     {
       gameover = false;
-      player_lives = 3;
+      player_lives = 2;
       sm->setActive(SCENE_GAME);
       ((Level*) sm->getActive())->init();
       ((Player*)((Level*) sm->getActive())->findEntity(ENTITY_PLAYER))->setLives(player_lives);

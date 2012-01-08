@@ -6,6 +6,7 @@
 Level::Level(const char* _filename)
 {
   filename = (char *) _filename;
+  init();
 }
 
 Level::~Level()

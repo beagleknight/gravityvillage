@@ -1,0 +1,8 @@
+<level>
+  <gui>
+    <textlabel x="255" y="100" text="VICTORY!" />
+    <textlabel x="220" y="200" text="Thanks for playing." />
+    <textlabel x="130" y="250" text="I hope you enjoyed playing this demo." />
+    <textlabel x="210" y="400" text="- Press ESC to exit -" />
+  </gui>
+</level>
