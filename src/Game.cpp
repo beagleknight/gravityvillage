@@ -38,6 +38,7 @@ void Game::init(int argc, char** argv)
   tm->loadTexture(TEXTURE_TOWN, "res/textures/town.png");
   tm->loadTexture(TEXTURE_BUBBLE, "res/textures/bubble.png");
   tm->loadTexture(TEXTURE_COIN, "res/textures/coin.png");
+  tm->loadTexture(TEXTURE_TURTLE, "res/textures/turtle.png");
 
   // Loading sounds
   sdm->addSound(SOUND_MARIO_OST, "res/sounds/mario.wav");

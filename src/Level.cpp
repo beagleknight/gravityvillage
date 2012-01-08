@@ -194,7 +194,8 @@ void Level::createTown(TiXmlElement* xTown)
 
 void Level::createEnemy(TiXmlElement* xEnemy)
 {
-  int row, col, velx, cols, frames, width, height;
+  int row, col, velx, cols, frames, width, height, type;
+  int texture;
   float animationtime;
   Enemy *enemy;
 
@@ -203,6 +204,17 @@ void Level::createEnemy(TiXmlElement* xEnemy)
     sscanf(xEnemy->Attribute("row"), "%d", &row);
     sscanf(xEnemy->Attribute("col"), "%d", &col);
     sscanf(xEnemy->Attribute("velx"), "%d", &velx);
+    sscanf(xEnemy->Attribute("type"), "%d", &type);
+
+    switch(type)
+    {
+      case ENEMY_GROUND:
+        texture = TEXTURE_ENEMY_0;
+        break;
+      case ENEMY_SKY:
+        texture = TEXTURE_TURTLE;
+        break;
+    }
 
     TiXmlElement* xSprite = xEnemy->FirstChildElement("sprite");
     sscanf(xSprite->Attribute("cols"), "%d", &cols);
@@ -212,7 +224,7 @@ void Level::createEnemy(TiXmlElement* xEnemy)
     sscanf(xSprite->Attribute("animationtime"), "%f", &animationtime);
 
     enemy = new Enemy();
-    enemy->init(row, col, TEXTURE_ENEMY_0);
+    enemy->init(row, col, texture, type);
     enemy->setCols(cols);
     enemy->setTotalFrames(frames);
     enemy->setWidth(width);

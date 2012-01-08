@@ -24,14 +24,20 @@
     <item row="17" col="4" type="2" />
   </items>
   <enemies>
-    <enemy row="3" col="12" velx="-70">
+    <enemy row="3" col="12" velx="-70" type="0">
       <sprite cols="4" frames="4" width="32" height="32" animationtime="0.5" />
     </enemy>
-    <enemy row="12" col="18" velx="70">
+    <enemy row="12" col="18" velx="70" type="0">
       <sprite cols="4" frames="4" width="32" height="32" animationtime="0.5" />
     </enemy>
-    <enemy row="15" col="5" velx="-70">
+    <enemy row="15" col="5" velx="-90" type="0">
       <sprite cols="4" frames="4" width="32" height="32" animationtime="0.5" />
+    </enemy>
+    <enemy row="8" col="15" velx="-100" type="1">
+      <sprite cols="2" frames="2" width="25" height="29" animationtime="0.25" />
+    </enemy>
+    <enemy row="14" col="22" velx="110" type="1">
+      <sprite cols="2" frames="2" width="25" height="29" animationtime="0.25" />
     </enemy>
   </enemies>
   <gui>
