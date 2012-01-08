@@ -25,7 +25,7 @@
     </enemy>
   </enemies>
   <gui>
-    <textlabel x="20" y="30" text="Time: 60" />
-    <textlabel x="550" y="30" text="Lives: 3" />
+    <textlabel id="time" x="20" y="30" text="" />
+    <textlabel id="lives" x="550" y="30" text="" />
   </gui>
 </level>

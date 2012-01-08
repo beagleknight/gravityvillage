@@ -46,7 +46,20 @@ void Town::render()
 
 void Town::update(float dt)
 {
+  string text;
+  char time_remaining[10];
+
   counter += dt;
+
+  TextLabel *label = (TextLabel*) game.getSceneManager()->getActive()->findEntity(string("time"));
+  if(label != 0)
+  {
+    sprintf(time_remaining, "%d", (int) getTimeRemaining());
+    text = "Time: ";
+    text += time_remaining;
+    label->setText(text); 
+  }
+
   if(counter >= time)
     game.setGameOver(true);
 }

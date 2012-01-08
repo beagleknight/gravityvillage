@@ -102,6 +102,7 @@ void Player::halt()
 {
   setVelX(0);
   setAnimationTime(0);
+  setCurrentFrame(3);
 }
 
 bool Player::isJumping()

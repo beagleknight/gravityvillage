@@ -206,6 +206,7 @@ void Level::createTextLabel(TiXmlElement* xTextLabel)
 {
   int x, y;
   TextLabel *textlabel;
+  char id[256];
   
   if(xTextLabel != 0)
   {
@@ -213,6 +214,13 @@ void Level::createTextLabel(TiXmlElement* xTextLabel)
     sscanf(xTextLabel->Attribute("y"), "%d", &y);   
 
     textlabel = new TextLabel(x, y, xTextLabel->Attribute("text"));
+    
+    if(xTextLabel->Attribute("id") != 0)
+    {
+      sscanf(xTextLabel->Attribute("id"), "%s", id);   
+      textlabel->setId(string(id));
+    }
+
     addGUIElement(textlabel);
   }
 }

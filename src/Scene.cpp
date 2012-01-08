@@ -67,7 +67,9 @@ void Scene::addGUIElement(Entity *entity)
 
 Entity* Scene::findEntity(int type)
 {
-  std::vector<Entity*>::iterator it = entities.begin();
+  std::vector<Entity*>::iterator it;
+ 
+  it = entities.begin();
   while(it != entities.end())
   {
     if((*it)->getType() == type)
@@ -75,14 +77,60 @@ Entity* Scene::findEntity(int type)
 
     it++;
   }
+
+  it = gui_elements.begin();
+  while(it != gui_elements.end())
+  {
+    if((*it)->getType() == type)
+      return *it;
+
+    it++;
+  }
+
+  return 0;
+}
+
+Entity* Scene::findEntity(string id)
+{
+  std::vector<Entity*>::iterator it;
+
+  it = entities.begin();
+  while(it != entities.end())
+  {
+    if((*it)->getId() == id)
+      return *it;
+
+    it++;
+  }
+
+  it = gui_elements.begin();
+  while(it != gui_elements.end())
+  {
+    if((*it)->getId() == id)
+      return *it;
+
+    it++;
+  }
+
   return 0;
 }
 
 std::vector<Entity*> Scene::findAllEntities(int type)
 {
   std::vector<Entity*> result;
-  std::vector<Entity*>::iterator it = entities.begin();
+  std::vector<Entity*>::iterator it;
+
+  it = entities.begin();
   while(it != entities.end())
+  {
+    if((*it)->getType() == type)
+      result.push_back(*it);
+
+    it++;
+  }
+
+  it = gui_elements.begin();
+  while(it != gui_elements.end())
   {
     if((*it)->getType() == type)
       result.push_back(*it);

@@ -2,7 +2,10 @@
 #define CLASS_SCENE_H
 
 #include "Entity.hpp"
+#include <iostream>
+#include <string>
 #include <vector>
+using namespace std;
 
 class Scene
 {
@@ -16,10 +19,11 @@ class Scene
     void addEntity(Entity *entity);
     void addGUIElement(Entity *entity);
     Entity* findEntity(int type);
-    std::vector<Entity*> findAllEntities(int type);
+    Entity* findEntity(string id);
+    vector<Entity*> findAllEntities(int type);
   private:
-    std::vector<Entity*> entities;
-    std::vector<Entity*> gui_elements;
+    vector<Entity*> entities;
+    vector<Entity*> gui_elements;
 };
 
 #endif

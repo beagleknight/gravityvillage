@@ -8,6 +8,10 @@
 #define ENTITY_ITEM 4
 #define ENTITY_TOWN 5
 
+#include <iostream>
+#include <string>
+using namespace std;
+
 class Entity
 {
   public:
@@ -17,8 +21,11 @@ class Entity
     virtual void update(float dt) = 0;
     void setType(int _type);
     int getType();
+    void setId(string _id);
+    string getId();
   private:
     int type;
+    string id;
 };
 
 #endif
