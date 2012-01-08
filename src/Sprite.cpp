@@ -249,6 +249,7 @@ bool Sprite::collision(Sprite *sprite)
   int x2_2 = sprite->getX() + sprite->getWidth();
   int y2_2 = sprite->getY() + sprite->getHeight();
 
+  if(!sprite->isAlive()) return false;
   return (x1_1 < x2_2) && (x2_1 > x1_2) && (y1_1 < y2_2) && (y2_1 > y1_2);
 }
 

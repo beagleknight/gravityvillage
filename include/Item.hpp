@@ -5,6 +5,7 @@
 
 #define ITEM_APPLE 0
 #define ITEM_ORANGE 1
+#define ITEM_COIN 2
 
 class Item : public Sprite
 {

@@ -27,6 +27,7 @@ class Game
     int window_h; 
     bool show_console;
     bool gameover;
+    bool victory;
     int player_lives;
   public:
     TextureManager *tm;
@@ -52,6 +53,7 @@ class Game
     SceneManager* getSceneManager();
     SoundManager* getSoundManager();
     void setGameOver(bool _gameover);
+    void setVictory(bool _victory);
 };
 
 #endif

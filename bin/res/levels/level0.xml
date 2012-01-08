@@ -12,6 +12,16 @@
   </towns>
   <items>
     <item row="15" col="6" type="0" />
+    <item row="6" col="12" type="2" />
+    <item row="6" col="13" type="2" />
+    <item row="6" col="14" type="2" />
+    <item row="10" col="22" type="2" />
+    <item row="10" col="23" type="2" />
+    <item row="10" col="24" type="2" />
+    <item row="17" col="1" type="2" />
+    <item row="17" col="2" type="2" />
+    <item row="17" col="3" type="2" />
+    <item row="17" col="4" type="2" />
   </items>
   <enemies>
     <enemy row="3" col="12" velx="-70">
@@ -26,6 +36,7 @@
   </enemies>
   <gui>
     <textlabel id="time" x="20" y="30" text="" />
-    <textlabel id="lives" x="550" y="30" text="" />
+    <textlabel id="lives" x="540" y="30" text="" />
+    <textlabel id="score" x="535" y="60" text="" />
   </gui>
 </level>

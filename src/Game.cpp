@@ -7,6 +7,7 @@ Game::Game()
   sdm = 0;
   show_console = false;
   gameover = false;
+  victory = false;
   player_lives = 2;
 }
 
@@ -36,10 +37,13 @@ void Game::init(int argc, char** argv)
   tm->loadTexture(TEXTURE_ENEMY_0, "res/textures/enemy.png");
   tm->loadTexture(TEXTURE_TOWN, "res/textures/town.png");
   tm->loadTexture(TEXTURE_BUBBLE, "res/textures/bubble.png");
+  tm->loadTexture(TEXTURE_COIN, "res/textures/coin.png");
 
   // Loading sounds
   sdm->addSound(SOUND_MARIO_OST, "res/sounds/mario.wav");
   sdm->addSound(SOUND_JUMP, "res/sounds/jump.wav");
+  sdm->addSound(SOUND_PICK_ITEM, "res/sounds/pick_item.wav");
+  sdm->addSound(SOUND_PICK_QUEST, "res/sounds/pick_quest.wav");
 
   // Loading start scene
   sm->addScene(SCENE_START, new Level("res/levels/start.xml"));
@@ -90,6 +94,10 @@ void Game::update()
         ((Player*)((Level*) sm->getActive())->findEntity(ENTITY_PLAYER))->setLives(player_lives);
         sm->setActive(SCENE_GAME);
       }
+    }
+    else if(victory)
+    {
+      sm->setActive(SCENE_VICTORY);
     }
   }
   
@@ -245,4 +253,9 @@ SoundManager* Game::getSoundManager()
 void Game::setGameOver(bool _gameover)
 {
   gameover = _gameover;
+}
+
+void Game::setVictory(bool _victory)
+{
+  victory = _victory;
 }

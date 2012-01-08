@@ -10,6 +10,7 @@
 #define TEXTURE_ENEMY_0 3
 #define TEXTURE_TOWN 4
 #define TEXTURE_BUBBLE 5
+#define TEXTURE_COIN 6
 
 class TextureManager
 {

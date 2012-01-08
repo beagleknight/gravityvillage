@@ -7,6 +7,8 @@ using namespace std;
 
 #define SOUND_MARIO_OST 0
 #define SOUND_JUMP 1
+#define SOUND_PICK_ITEM 2
+#define SOUND_PICK_QUEST 3
 
 class SoundManager
 {

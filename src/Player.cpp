@@ -12,6 +12,7 @@ Player::Player()
   setType(ENTITY_PLAYER);
   backpack = 0;
   lives = 2;
+  score = 0;
 }
 
 Player::~Player()
@@ -21,8 +22,10 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-  char lives_str[10];
+  char str[10];
   string text;
+  std::vector<Entity*> entities;
+  std::vector<Entity*>::iterator it; 
 
   // control logic
   if(game.keyPressed(GLUT_KEY_LEFT))
@@ -48,11 +51,30 @@ void Player::update(float dt)
 
   Scene *scene;
   scene = game.getSceneManager()->getActive();
+
   // check collisions against items
-  Item *item = (Item*) scene->findEntity(ENTITY_ITEM);
-  if(item != 0 && collision(item))
+  entities = scene->findAllEntities(ENTITY_ITEM);
+  it = entities.begin();
+  while(it != entities.end())
   {
-    pickItem(item);
+    if(collision((Item*)(*it)))
+    {
+      switch(((Item*)(*it))->getItemType())
+      {
+        case ITEM_APPLE:
+        case ITEM_ORANGE:
+          pickItem((Item*)(*it));
+          game.getSoundManager()->playFX(SOUND_PICK_QUEST);
+          break;
+        case ITEM_COIN:
+          ((Item*)(*it))->setAlive(false);
+          score++;
+          game.getSoundManager()->playFX(SOUND_PICK_ITEM);
+          break;
+      }
+
+    }
+    it++;
   }
 
   // check collision against town
@@ -60,13 +82,13 @@ void Player::update(float dt)
   if(town != 0 && collision(town))
   {
     if(backpack != 0 && (backpack->getItemType() == town->itemRequested()))
-      game.setGameOver(true);
+      game.setVictory(true);
   }
 
   // check collision against enemies
-  std::vector<Entity*> enemies = scene->findAllEntities(ENTITY_ENEMY);
-  std::vector<Entity*>::iterator it = enemies.begin();
-  while(it != enemies.end())
+  entities = scene->findAllEntities(ENTITY_ENEMY);
+  it = entities.begin();
+  while(it != entities.end())
   {
     if(collision((Enemy*) (*it)))
       game.setGameOver(true);
@@ -77,13 +99,23 @@ void Player::update(float dt)
   if(getY() < 0)
     game.setGameOver(true);
 
+  TextLabel *label;
   // update lives counter
-  TextLabel *label = (TextLabel*) scene->findEntity("lives");
+  label = (TextLabel*) scene->findEntity("lives");
   if(label != 0)
   {
-    sprintf(lives_str, "%d", lives);
+    sprintf(str, "%d", lives);
     text = "Lives: ";
-    text += lives_str;
+    text += str;
+    label->setText(text); 
+  }
+  // update score counter
+  label = (TextLabel*) scene->findEntity("score");
+  if(label != 0)
+  {
+    sprintf(str, "%d", score);
+    text = "Score: ";
+    text += str;
     label->setText(text); 
   }
 

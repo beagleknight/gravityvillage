@@ -25,6 +25,7 @@ class Player : public Sprite
     bool jumping;
     Item* backpack;
     int lives;
+    int score;
 };
 
 #endif

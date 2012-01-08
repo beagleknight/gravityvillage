@@ -129,6 +129,7 @@ void Level::createItem(TiXmlElement* xItem)
 {
   Item* item;
   int row, col, type;
+  int texture;
 
   if(xItem != 0)
   {
@@ -137,7 +138,16 @@ void Level::createItem(TiXmlElement* xItem)
     sscanf(xItem->Attribute("type"), "%d", &type); 
 
     item = new Item();
-    item->init(type, row, col, TEXTURE_ITEM_0);
+    switch(type)
+    {
+      case ITEM_APPLE:
+        texture = TEXTURE_ITEM_0;
+        break;
+      case ITEM_COIN:
+        texture = TEXTURE_COIN;
+        break;
+    }
+    item->init(type, row, col, texture);
     addEntity(item);
   }
 }
@@ -145,6 +155,7 @@ void Level::createItem(TiXmlElement* xItem)
 void Level::createTown(TiXmlElement* xTown)
 {
   int row, col, time, type;
+  int texture;
   Town* town;
   Item *item;
 
@@ -163,7 +174,16 @@ void Level::createTown(TiXmlElement* xTown)
     {
       item = new Item();
       sscanf(xItem->Attribute("type"), "%d", &type); 
-      item->init(type, row+2, col+3, TEXTURE_ITEM_0);
+      switch(type)
+      {
+        case ITEM_APPLE:
+          texture = TEXTURE_ITEM_0;
+          break;
+        case ITEM_COIN:
+          texture = TEXTURE_COIN;
+          break;
+      }
+      item->init(type, row+2, col+3, texture);
       item->setX(item->getX()+15);
       item->setY(item->getY()+20);
       town->addItem(item);
